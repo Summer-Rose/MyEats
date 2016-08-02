@@ -2,6 +2,7 @@ package com.epicodus.myrestaurants.ui;
 
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -86,14 +87,14 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
         View view = inflater.inflate(R.layout.fragment_restaurant_detail, container, false);
         ButterKnife.bind(this, view);
 
-        mToolbar = (Toolbar) view.findViewById(R.id.main_toolbar);
-        mToolbar.inflateMenu(R.menu.menu_search);
-        collapsingToolbarLayout = (CollapsingToolbarLayout) view.findViewById(R.id.main_collapsing);
-        collapsingToolbarLayout.setTitle("MyRestaurants");
-        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
-
-        //collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(R.color.colorPrimaryDark));
-        collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.colorAccent));
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            mToolbar = (Toolbar) view.findViewById(R.id.main_toolbar);
+            mToolbar.inflateMenu(R.menu.menu_search);
+            collapsingToolbarLayout = (CollapsingToolbarLayout) view.findViewById(R.id.main_collapsing);
+            collapsingToolbarLayout.setTitle(getResources().getString(R.string.app_name));
+            collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
+            collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.colorAccent));
+        }
 
         if (!mRestaurant.getImageUrl().contains("http")) {
             try {
