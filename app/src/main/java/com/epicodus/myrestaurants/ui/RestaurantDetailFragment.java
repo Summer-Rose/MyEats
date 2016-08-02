@@ -7,7 +7,9 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -56,14 +58,15 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
     private int mPosition;
     private String mSource;
 
+    private Toolbar mToolbar;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
+
     public static RestaurantDetailFragment newInstance(ArrayList<Restaurant> restaurants, Integer position, String source) {
         RestaurantDetailFragment restaurantDetailFragment = new RestaurantDetailFragment();
         Bundle args = new Bundle();
-
         args.putParcelable(Constants.EXTRA_KEY_RESTAURANTS, Parcels.wrap(restaurants));
         args.putInt(Constants.EXTRA_KEY_POSITION, position);
         args.putString(Constants.KEY_SOURCE, source);
-
         restaurantDetailFragment.setArguments(args);
         return restaurantDetailFragment;
     }
@@ -82,6 +85,15 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_restaurant_detail, container, false);
         ButterKnife.bind(this, view);
+
+        mToolbar = (Toolbar) view.findViewById(R.id.main_toolbar);
+        mToolbar.inflateMenu(R.menu.menu_search);
+        collapsingToolbarLayout = (CollapsingToolbarLayout) view.findViewById(R.id.main_collapsing);
+        collapsingToolbarLayout.setTitle("MyRestaurants");
+        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
+
+        //collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(R.color.colorPrimaryDark));
+        collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.colorAccent));
 
         if (!mRestaurant.getImageUrl().contains("http")) {
             try {
