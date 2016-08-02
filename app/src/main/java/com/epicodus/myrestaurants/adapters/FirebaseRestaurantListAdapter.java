@@ -11,7 +11,6 @@ import android.view.View;
 
 import com.epicodus.myrestaurants.Constants;
 import com.epicodus.myrestaurants.R;
-import com.epicodus.myrestaurants.adapters.FirebaseRestaurantViewHolder;
 import com.epicodus.myrestaurants.models.Restaurant;
 import com.epicodus.myrestaurants.ui.RestaurantDetailActivity;
 import com.epicodus.myrestaurants.ui.RestaurantDetailFragment;
@@ -139,7 +138,7 @@ public class FirebaseRestaurantListAdapter extends FirebaseRecyclerAdapter<Resta
         for (Restaurant restaurant : mRestaurants) {
             int index = mRestaurants.indexOf(restaurant);
             DatabaseReference ref = getRef(index);
-            ref.child("index").setValue(Integer.toString(index));
+            ref.child(Constants.FIREBASE_QUERY_INDEX).setValue(Integer.toString(index));
         }
     }
 

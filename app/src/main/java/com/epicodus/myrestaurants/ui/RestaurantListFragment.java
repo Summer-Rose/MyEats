@@ -35,7 +35,6 @@ import okhttp3.Response;
 
 public class RestaurantListFragment extends Fragment {
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
-
     private RestaurantListAdapter mAdapter;
     public ArrayList<Restaurant> mRestaurants = new ArrayList<>();
     private SharedPreferences mSharedPreferences;
@@ -48,10 +47,8 @@ public class RestaurantListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mEditor = mSharedPreferences.edit();
-
         setHasOptionsMenu(true);
     }
 
@@ -71,7 +68,6 @@ public class RestaurantListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_restaurant_list, container, false);
         ButterKnife.bind(this, view);
         mRecentAddress = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION_KEY, null);
-
         if (mRecentAddress != null) {
             getRestaurants(mRecentAddress);
         }

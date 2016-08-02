@@ -21,7 +21,6 @@ public class RestaurantListActivity extends AppCompatActivity implements OnResta
         setContentView(R.layout.activity_restaurants);
 
         if (savedInstanceState != null) {
-
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                 mPosition = savedInstanceState.getInt(Constants.EXTRA_KEY_POSITION);
                 mRestaurants = Parcels.unwrap(savedInstanceState.getParcelable(Constants.EXTRA_KEY_RESTAURANTS));
@@ -34,23 +33,18 @@ public class RestaurantListActivity extends AppCompatActivity implements OnResta
                     intent.putExtra(Constants.KEY_SOURCE, mSource);
                     startActivity(intent);
                 }
-
             }
-
         }
-
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-
         if (mPosition != null && mRestaurants != null) {
             outState.putInt(Constants.EXTRA_KEY_POSITION, mPosition);
             outState.putParcelable(Constants.EXTRA_KEY_RESTAURANTS, Parcels.wrap(mRestaurants));
             outState.putString(Constants.KEY_SOURCE, mSource);
         }
-
     }
 
     @Override
