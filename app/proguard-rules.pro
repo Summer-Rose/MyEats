@@ -4,7 +4,7 @@
 # You can edit the include path and order by changing the proguardFiles
 # directive in build.gradle.
 #
-# For more details, see
+# For more fragment_restaurant_detail_content, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
 # Add any project specific keep options here:
