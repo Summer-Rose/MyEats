@@ -27,4 +27,7 @@
     <string name="saved_toast">Saved</string>
     <string name="title_activity_maps">Map</string>
 
+    <string name="photo_button">Take a photo</string>
+
+
 </resources>
