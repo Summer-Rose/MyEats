@@ -34,6 +34,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -250,7 +251,10 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
         GoogleMap map = googleMap;
         LatLng restaurantMarker = new LatLng(mRestaurant.getLatitude(), mRestaurant.getLongitude());
         map.addMarker(new MarkerOptions().position(restaurantMarker).title(mRestaurant.getName()));
-        map.moveCamera(CameraUpdateFactory.newLatLng(restaurantMarker));
-        map.animateCamera( CameraUpdateFactory.zoomTo( 13.0f ) );
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(restaurantMarker, 15));
+        UiSettings uiSettings = map.getUiSettings();
+        uiSettings.setZoomControlsEnabled(true);
+        uiSettings.setCompassEnabled(true);
+        uiSettings.setMyLocationButtonEnabled(true);
     }
 }
