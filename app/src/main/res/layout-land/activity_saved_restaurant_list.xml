@@ -27,6 +27,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:showDividers="middle"
         android:baselineAligned="false"
+        android:layout_marginTop="28dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
@@ -46,6 +47,7 @@
         <FrameLayout
             android:id="@+id/restaurantDetailContainer"
             android:layout_width="0dp"
+            android:layout_marginTop="20dp"
             android:layout_height="match_parent"
             android:layout_weight="6">
 
