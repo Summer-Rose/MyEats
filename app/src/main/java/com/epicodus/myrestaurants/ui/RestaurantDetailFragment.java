@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,7 +46,7 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
     private ImageView mImageLabel;
     private TextView mNameLabel;
     private TextView mCategoriesLabel;
-    private TextView mRatingLabel;
+    private RatingBar mRatingBar;
     private TextView mWebsiteLabel;
     private TextView mPhoneLabel;
     private TextView mAddressLabel;
@@ -61,7 +62,7 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
         mImageLabel = (ImageView) view.findViewById(R.id.restaurantImageView);
         mNameLabel = (TextView) view.findViewById(R.id.restaurantNameTextView);
         mCategoriesLabel = (TextView) view.findViewById(R.id.categoryTextView);
-        mRatingLabel = (TextView) view.findViewById(R.id.ratingTextView);
+        mRatingBar = (RatingBar) view.findViewById(R.id.ratingBar);
         mWebsiteLabel = (TextView) view.findViewById(R.id.websiteTextView);
         mPhoneLabel = (TextView) view.findViewById(R.id.phoneTextView);
         mAddressLabel = (TextView) view.findViewById(R.id.addressTextView);
@@ -99,7 +100,7 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
             collapsingToolbarLayout = (CollapsingToolbarLayout) view.findViewById(R.id.main_collapsing);
             collapsingToolbarLayout.setTitle(getResources().getString(R.string.app_name));
             collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
-            collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.colorAccent));
+            collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.colorPrimary));
         }
 
         if (!mRestaurant.getImageUrl().contains(Constants.HTTP_FILTER)) {
@@ -125,7 +126,7 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
 
         mNameLabel.setText(mRestaurant.getName());
         mCategoriesLabel.setText(android.text.TextUtils.join(", ", mRestaurant.getCategories()));
-        mRatingLabel.setText(String.format(getResources().getString(R.string.rating_format), Double.toString(mRestaurant.getRating())));
+        mRatingBar.setRating((float)mRestaurant.getRating());
         mPhoneLabel.setText(mRestaurant.getPhone());
         mAddressLabel.setText(android.text.TextUtils.join(", ", mRestaurant.getAddress()));
         mWebsiteLabel.setOnClickListener(this);
