@@ -95,7 +95,7 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             mToolbar = (Toolbar) view.findViewById(R.id.main_toolbar);
-            mToolbar.inflateMenu(R.menu.menu_search);
+            mToolbar.inflateMenu(R.menu.menu_main);
             collapsingToolbarLayout = (CollapsingToolbarLayout) view.findViewById(R.id.main_collapsing);
             collapsingToolbarLayout.setTitle(getResources().getString(R.string.app_name));
             collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
@@ -193,7 +193,6 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-
         if (v == mWebsiteLabel) {
             Intent webIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse(mRestaurant.getWebsite()));
@@ -230,7 +229,5 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
             pushRef.setValue(mRestaurant);
             Toast.makeText(getContext(), getResources().getString(R.string.saved_toast), Toast.LENGTH_SHORT).show();
         }
-
     }
-
 }
