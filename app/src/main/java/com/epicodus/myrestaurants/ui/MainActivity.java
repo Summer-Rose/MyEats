@@ -2,72 +2,47 @@ package com.epicodus.myrestaurants.ui;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.epicodus.myrestaurants.Constants;
 import com.epicodus.myrestaurants.R;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    @Bind(R.id.findRestaurantsButton) Button mFindRestaurantsButton;
-    @Bind(R.id.appNameTextView) TextView mAppNameTextView;
-    @Bind(R.id.savedRestaurantsButton) Button mSavedRestaurantsButton;
-
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
+    private Button mFindRestaurantsButton;
+    private TextView mAppNameTextView;
+    private Button mSavedRestaurantsButton;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+        bindViews();
+    }
 
-        Typeface ostrichFont = Typeface.createFromAsset(getAssets(), "fonts/ostrich-regular.ttf");
+    private void bindViews() {
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        mFindRestaurantsButton = (Button) findViewById(R.id.findRestaurantsButton);
+        mAppNameTextView = (TextView) findViewById(R.id.appNameTextView);
+        mSavedRestaurantsButton = (Button) findViewById(R.id.savedRestaurantsButton);
+        Typeface ostrichFont = Typeface.createFromAsset(getAssets(), Constants.FONT_OSTRICH_REGULAR);
         mAppNameTextView.setTypeface(ostrichFont);
-
+        getSupportActionBar().setTitle(String.format(
+                getResources().getString(R.string.welcome_toolbar_title),
+                FirebaseAuth.getInstance().getCurrentUser().getDisplayName()));
         mAppNameTextView.setOnClickListener(this);
-
         mFindRestaurantsButton.setOnClickListener(this);
         mSavedRestaurantsButton.setOnClickListener(this);
-
-        mAuth = FirebaseAuth.getInstance();
-
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    getSupportActionBar().setTitle("Welcome, " + user.getDisplayName() + "!");
-                } else {
-
-                }
-            }
-        };
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
     }
 
     @Override
@@ -80,12 +55,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         if (id == R.id.action_logout) {
             logout();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -99,12 +72,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-
         if(v == mFindRestaurantsButton) {
             Intent intent = new Intent(MainActivity.this, RestaurantListActivity.class);
             startActivity(intent);
         }
-
         if (v == mSavedRestaurantsButton) {
             Intent intent = new Intent(MainActivity.this, SavedRestaurantListActivity.class);
             startActivity(intent);

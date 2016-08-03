@@ -13,26 +13,21 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-
 public class RestaurantDetailActivity extends AppCompatActivity {
-    @Bind(R.id.viewPager) ViewPager mViewPager;
-
+    private final int DEFAULT_POSITION = 0;
+    private ViewPager mViewPager;
     private RestaurantPagerAdapter adapterViewPager;
-    ArrayList<Restaurant> mRestaurants = new ArrayList<>();
+    private ArrayList<Restaurant> mRestaurants = new ArrayList<>();
     private String mSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_detail);
-        ButterKnife.bind(this);
-
+        mViewPager = (ViewPager) findViewById(R.id.viewPager);
         mRestaurants = Parcels.unwrap(getIntent().getParcelableExtra(Constants.EXTRA_KEY_RESTAURANTS));
-        int startingPosition = getIntent().getIntExtra(Constants.EXTRA_KEY_POSITION, 0);
+        int startingPosition = getIntent().getIntExtra(Constants.EXTRA_KEY_POSITION, DEFAULT_POSITION);
         mSource = getIntent().getStringExtra(Constants.KEY_SOURCE);
-
         adapterViewPager = new RestaurantPagerAdapter(getSupportFragmentManager(), mRestaurants, mSource);
         mViewPager.setAdapter(adapterViewPager);
         mViewPager.setCurrentItem(startingPosition);

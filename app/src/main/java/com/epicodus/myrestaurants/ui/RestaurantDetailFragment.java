@@ -18,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,30 +38,35 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-
 public class RestaurantDetailFragment extends Fragment implements View.OnClickListener {
     private static final int MAX_WIDTH = 400;
     private static final int MAX_HEIGHT = 300;
     private static final int REQUEST_IMAGE_CAPTURE = 111;
-
-    @Bind(R.id.restaurantImageView) ImageView mImageLabel;
-    @Bind(R.id.restaurantNameTextView) TextView mNameLabel;
-    @Bind(R.id.cuisineTextView) TextView mCategoriesLabel;
-    @Bind(R.id.ratingTextView) TextView mRatingLabel;
-    @Bind(R.id.websiteTextView) TextView mWebsiteLabel;
-    @Bind(R.id.phoneTextView) TextView mPhoneLabel;
-    @Bind(R.id.addressTextView) TextView mAddressLabel;
-    @Bind(R.id.saveRestaurantButton) TextView mSaveRestaurantButton;
-
+    private ImageView mImageLabel;
+    private TextView mNameLabel;
+    private TextView mCategoriesLabel;
+    private TextView mRatingLabel;
+    private TextView mWebsiteLabel;
+    private TextView mPhoneLabel;
+    private TextView mAddressLabel;
+    private Button mSaveRestaurantButton;
     private Restaurant mRestaurant;
     private ArrayList<Restaurant> mRestaurants;
     private int mPosition;
     private String mSource;
-
     private Toolbar mToolbar;
     private CollapsingToolbarLayout collapsingToolbarLayout;
+
+    private void bindViews(View view) {
+        mImageLabel = (ImageView) view.findViewById(R.id.restaurantImageView);
+        mNameLabel = (TextView) view.findViewById(R.id.restaurantNameTextView);
+        mCategoriesLabel = (TextView) view.findViewById(R.id.categoryTextView);
+        mRatingLabel = (TextView) view.findViewById(R.id.ratingTextView);
+        mWebsiteLabel = (TextView) view.findViewById(R.id.websiteTextView);
+        mPhoneLabel = (TextView) view.findViewById(R.id.phoneTextView);
+        mAddressLabel = (TextView) view.findViewById(R.id.addressTextView);
+        mSaveRestaurantButton = (Button) view.findViewById(R.id.saveRestaurantButton);
+    }
 
     public static RestaurantDetailFragment newInstance(ArrayList<Restaurant> restaurants, Integer position, String source) {
         RestaurantDetailFragment restaurantDetailFragment = new RestaurantDetailFragment();
@@ -85,7 +91,7 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_restaurant_detail, container, false);
-        ButterKnife.bind(this, view);
+        bindViews(view);
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             mToolbar = (Toolbar) view.findViewById(R.id.main_toolbar);
@@ -96,7 +102,7 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
             collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.colorAccent));
         }
 
-        if (!mRestaurant.getImageUrl().contains("http")) {
+        if (!mRestaurant.getImageUrl().contains(Constants.HTTP_FILTER)) {
             try {
                 Bitmap image = decodeFromFirebaseBase64(mRestaurant.getImageUrl());
                 mImageLabel.setImageBitmap(image);
@@ -119,10 +125,9 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
 
         mNameLabel.setText(mRestaurant.getName());
         mCategoriesLabel.setText(android.text.TextUtils.join(", ", mRestaurant.getCategories()));
-        mRatingLabel.setText(Double.toString(mRestaurant.getRating()) + "/5");
+        mRatingLabel.setText(String.format(getResources().getString(R.string.rating_format), Double.toString(mRestaurant.getRating())));
         mPhoneLabel.setText(mRestaurant.getPhone());
         mAddressLabel.setText(android.text.TextUtils.join(", ", mRestaurant.getAddress()));
-
         mWebsiteLabel.setOnClickListener(this);
         mPhoneLabel.setOnClickListener(this);
         mAddressLabel.setOnClickListener(this);
@@ -168,7 +173,7 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == getActivity().RESULT_OK) {
             Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            Bitmap imageBitmap = (Bitmap) extras.get(Constants.BITMAP_EXTRA);
             mImageLabel.setImageBitmap(imageBitmap);
             encodeBitmapAndSaveToFirebase(imageBitmap);
         }
@@ -182,7 +187,7 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
                 .getReference(Constants.FIREBASE_CHILD_RESTAURANTS)
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child(mRestaurant.getPushId())
-                .child("imageUrl");
+                .child(Constants.FIREBASE_CHILD_IMAGEURL);
         ref.setValue(imageEncoded);
     }
 
@@ -197,15 +202,17 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
 
         if (v == mPhoneLabel) {
             Intent phoneIntent = new Intent(Intent.ACTION_DIAL,
-                    Uri.parse("tel:" + mRestaurant.getPhone()));
+                    Uri.parse(String.format(getResources().getString(R.string.tel_format),
+                            mRestaurant.getPhone())));
             startActivity(phoneIntent);
         }
 
         if (v == mAddressLabel) {
             Intent mapIntent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("geo:" + mRestaurant.getLatitude()
-                            + "," + mRestaurant.getLongitude()
-                            + "?q=(" + mRestaurant.getName() + ")"));
+                    Uri.parse(String.format(getResources().getString(R.string.map_format),
+                            Double.toString(mRestaurant.getLatitude()),
+                            Double.toString(mRestaurant.getLongitude()),
+                            mRestaurant.getName())));
             startActivity(mapIntent);
         }
 
@@ -217,13 +224,11 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
                     .getInstance()
                     .getReference(Constants.FIREBASE_CHILD_RESTAURANTS)
                     .child(uid);
-
             DatabaseReference pushRef = restaurantRef.push();
             String pushId = pushRef.getKey();
             mRestaurant.setPushId(pushId);
             pushRef.setValue(mRestaurant);
-
-            Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getResources().getString(R.string.saved_toast), Toast.LENGTH_SHORT).show();
         }
 
     }
