@@ -27,6 +27,15 @@ import android.widget.Toast;
 import com.epicodus.myrestaurants.Constants;
 import com.epicodus.myrestaurants.R;
 import com.epicodus.myrestaurants.models.Restaurant;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -39,7 +48,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class RestaurantDetailFragment extends Fragment implements View.OnClickListener {
+public class RestaurantDetailFragment extends Fragment implements View.OnClickListener, OnMapReadyCallback {
     private static final int MAX_WIDTH = 400;
     private static final int MAX_HEIGHT = 300;
     private static final int REQUEST_IMAGE_CAPTURE = 111;
@@ -57,6 +66,8 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
     private String mSource;
     private Toolbar mToolbar;
     private CollapsingToolbarLayout collapsingToolbarLayout;
+
+    private SupportMapFragment mMap;
 
     private void bindViews(View view) {
         mImageLabel = (ImageView) view.findViewById(R.id.restaurantImageView);
@@ -93,6 +104,9 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_restaurant_detail, container, false);
         bindViews(view);
+
+        mMap = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        mMap.getMapAsync(this);
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             mToolbar = (Toolbar) view.findViewById(R.id.main_toolbar);
@@ -219,7 +233,6 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
         if (v == mSaveRestaurantButton) {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             String uid = user.getUid();
-
             DatabaseReference restaurantRef = FirebaseDatabase
                     .getInstance()
                     .getReference(Constants.FIREBASE_CHILD_RESTAURANTS)
@@ -230,5 +243,14 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
             pushRef.setValue(mRestaurant);
             Toast.makeText(getContext(), getResources().getString(R.string.saved_toast), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        GoogleMap map = googleMap;
+        LatLng restaurantMarker = new LatLng(mRestaurant.getLatitude(), mRestaurant.getLongitude());
+        map.addMarker(new MarkerOptions().position(restaurantMarker).title(mRestaurant.getName()));
+        map.moveCamera(CameraUpdateFactory.newLatLng(restaurantMarker));
+        map.animateCamera( CameraUpdateFactory.zoomTo( 13.0f ) );
     }
 }

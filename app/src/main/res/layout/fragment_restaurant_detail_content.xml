@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorPrimary"
     android:fitsSystemWindows="true">
 
@@ -96,10 +96,12 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <ImageView
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:src="@drawable/waffles"/>
+                tools:context="com.epicodus.myrestaurants.ui.MapsActivity" />
 
         </LinearLayout>
 
