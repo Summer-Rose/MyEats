@@ -1,5 +1,7 @@
 package com.epicodus.myrestaurants.models;
 
+import com.epicodus.myrestaurants.Constants;
+
 import org.parceler.Parcel;
 
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ public class Restaurant {
         this.latitude = latitude;
         this.longitude = longitude;
         this.categories = categories;
-        this.index = "not_specified";
+        this.index = Constants.INDEX_NOT_SPECIFIED;
     }
 
     public String getName() {

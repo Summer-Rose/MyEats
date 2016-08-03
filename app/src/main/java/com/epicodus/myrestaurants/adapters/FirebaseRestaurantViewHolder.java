@@ -3,32 +3,20 @@ package com.epicodus.myrestaurants.adapters;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.epicodus.myrestaurants.Constants;
 import com.epicodus.myrestaurants.R;
 import com.epicodus.myrestaurants.models.Restaurant;
-import com.epicodus.myrestaurants.ui.RestaurantDetailActivity;
 import com.epicodus.myrestaurants.util.ItemTouchHelperViewHolder;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import org.parceler.Parcels;
-
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class FirebaseRestaurantViewHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {
     private static final int MAX_WIDTH = 200;

@@ -6,7 +6,6 @@ import android.content.res.Configuration;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +23,6 @@ import com.squareup.picasso.Picasso;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAdapter.RestaurantViewHolder> {
     private static final int MAX_WIDTH = 200;
@@ -62,11 +58,10 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
 
     public class RestaurantViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @Bind(R.id.restaurantImageView) ImageView mRestaurantImageView;
-        @Bind(R.id.restaurantNameTextView) TextView mNameTextView;
-        @Bind(R.id.categoryTextView) TextView mCategoryTextView;
-        @Bind(R.id.ratingTextView) TextView mRatingTextView;
-
+        private ImageView mRestaurantImageView;
+        private TextView mNameTextView;
+        private TextView mCategoryTextView;
+        private TextView mRatingTextView;
         private Context mContext;
         private int mOrientation;
         private ArrayList<Restaurant> mRestaurants = new ArrayList<>();
@@ -75,22 +70,25 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
         public RestaurantViewHolder(View itemView, ArrayList<Restaurant> restaurants, OnRestaurantSelectedListener restaurantSelectedListener) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
-
+            bindViews(itemView);
             mContext = itemView.getContext();
             mOrientation = itemView.getResources().getConfiguration().orientation;
             mRestaurants = restaurants;
             mRestaurantSelectedListener = restaurantSelectedListener;
-
             if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
                 createDetailFragment(0);
             }
-
             itemView.setOnClickListener(this);
         }
 
-        public void bindRestaurant(Restaurant restaurant) {
+        private void bindViews(View view) {
+            mRestaurantImageView = (ImageView) view.findViewById(R.id.restaurantImageView);
+            mNameTextView = (TextView) view.findViewById(R.id.restaurantNameTextView);
+            mCategoryTextView = (TextView) view.findViewById(R.id.categoryTextView);
+            mRatingTextView = (TextView) view.findViewById(R.id.ratingTextView);
+        }
 
+        public void bindRestaurant(Restaurant restaurant) {
             Picasso.with(mContext)
                     .load(restaurant.getImageUrl())
                     .resize(MAX_WIDTH, MAX_HEIGHT)
@@ -99,7 +97,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
             mNameTextView.setText(restaurant.getName());
             mCategoryTextView.setText(restaurant.getCategories().get(0));
-            mRatingTextView.setText("Rating: " + restaurant.getRating() + "/5");
+            mRatingTextView.setText(String.format(mContext.getResources().getString(R.string.rating_format), restaurant.getRating()));
         }
 
         private void createDetailFragment(int position) {
@@ -112,9 +110,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         @Override
         public void onClick(View v) {
             int itemPosition = getLayoutPosition();
-
             mRestaurantSelectedListener.onRestaurantSelected(itemPosition, mRestaurants, Constants.SOURCE_FIND);
-
             if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
                 createDetailFragment(itemPosition);
             } else {

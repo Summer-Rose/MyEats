@@ -48,28 +48,26 @@ public class YelpService {
             String jsonData = response.body().string();
             if (response.isSuccessful()) {
                 JSONObject yelpJSON = new JSONObject(jsonData);
-                JSONArray businessesJSON = yelpJSON.getJSONArray("businesses");
+                JSONArray businessesJSON = yelpJSON.getJSONArray(Constants.JSON_ARRAY_BUSINESSES);
                 for (int i = 0; i < businessesJSON.length(); i++) {
                     JSONObject restaurantJSON = businessesJSON.getJSONObject(i);
-                    String name = restaurantJSON.getString("name");
-                    String phone = restaurantJSON.optString("display_phone", "Phone not available");
-                    String website = restaurantJSON.getString("url");
-                    double rating = restaurantJSON.getDouble("rating");
-                    String imageUrl = restaurantJSON.getString("image_url");
-                    double latitude = restaurantJSON.getJSONObject("location")
-                            .getJSONObject("coordinate").getDouble("latitude");
-                    double longitude = restaurantJSON.getJSONObject("location")
-                            .getJSONObject("coordinate").getDouble("longitude");
+                    String name = restaurantJSON.getString(Constants.JSON_STRING_NAME);
+                    String phone = restaurantJSON.optString(Constants.JSON_STRING_PHONE, Constants.JSON_OPT_STRING_PHONE);
+                    String website = restaurantJSON.getString(Constants.JSON_STRING_URL);
+                    double rating = restaurantJSON.getDouble(Constants.JSON_DOUBLE_RATING);
+                    String imageUrl = restaurantJSON.getString(Constants.JSON_STRING_IMAGE_URL);
+                    double latitude = restaurantJSON.getJSONObject(Constants.JSON_OBJECT_LOCATION)
+                            .getJSONObject(Constants.JSON_OBJECT_COORDINATE).getDouble(Constants.JSON_DOUBLE_LAT);
+                    double longitude = restaurantJSON.getJSONObject(Constants.JSON_OBJECT_LOCATION)
+                            .getJSONObject(Constants.JSON_OBJECT_COORDINATE).getDouble(Constants.JSON_DOUBLE_LNG);
                     ArrayList<String> address = new ArrayList<>();
-                    JSONArray addressJSON = restaurantJSON.getJSONObject("location")
-                            .getJSONArray("display_address");
+                    JSONArray addressJSON = restaurantJSON.getJSONObject(Constants.JSON_OBJECT_LOCATION)
+                            .getJSONArray(Constants.JSON_ARRAY_ADDRESS);
                     for (int y = 0; y < addressJSON.length(); y++) {
                         address.add(addressJSON.get(y).toString());
                     }
-
                     ArrayList<String> categories = new ArrayList<>();
-                    JSONArray categoriesJSON = restaurantJSON.getJSONArray("categories");
-
+                    JSONArray categoriesJSON = restaurantJSON.getJSONArray(Constants.JSON_ARRAY_CATEGORIES);
                     for (int y = 0; y < categoriesJSON.length(); y++) {
                         categories.add(categoriesJSON.getJSONArray(y).get(0).toString());
                     }
@@ -85,6 +83,4 @@ public class YelpService {
         }
         return restaurants;
     }
-
-
 }
