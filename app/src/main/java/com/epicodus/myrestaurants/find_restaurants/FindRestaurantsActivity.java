@@ -1,4 +1,4 @@
-package com.epicodus.myrestaurants.ui;
+package com.epicodus.myrestaurants.find_restaurants;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
@@ -11,11 +11,12 @@ import android.view.MenuItem;
 import com.epicodus.myrestaurants.Constants;
 import com.epicodus.myrestaurants.R;
 import com.epicodus.myrestaurants.models.Restaurant;
+import com.epicodus.myrestaurants.ui.RestaurantDetailActivity;
 import com.epicodus.myrestaurants.util.OnRestaurantSelectedListener;
 import org.parceler.Parcels;
 import java.util.ArrayList;
 
-public class RestaurantListActivity extends AppCompatActivity implements OnRestaurantSelectedListener {
+public class FindRestaurantsActivity extends AppCompatActivity implements OnRestaurantSelectedListener {
     private Integer mPosition;
     private ArrayList<Restaurant> mRestaurants;
     private String mSource;

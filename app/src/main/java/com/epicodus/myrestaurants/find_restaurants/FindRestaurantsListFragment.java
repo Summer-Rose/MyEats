@@ -1,4 +1,4 @@
-package com.epicodus.myrestaurants.ui;
+package com.epicodus.myrestaurants.find_restaurants;
 
 
 import android.content.Context;
@@ -25,6 +25,7 @@ import com.epicodus.myrestaurants.R;
 import com.epicodus.myrestaurants.adapters.RestaurantListAdapter;
 import com.epicodus.myrestaurants.models.Restaurant;
 import com.epicodus.myrestaurants.services.YelpService;
+import com.epicodus.myrestaurants.ui.LoginActivity;
 import com.epicodus.myrestaurants.util.OnRestaurantSelectedListener;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -35,7 +36,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class RestaurantListFragment extends Fragment {
+public class FindRestaurantsListFragment extends Fragment implements FindRestaurantsView {
     private RecyclerView mRecyclerView;
     private RestaurantListAdapter mAdapter;
     public ArrayList<Restaurant> mRestaurants = new ArrayList<>();
@@ -44,7 +45,9 @@ public class RestaurantListFragment extends Fragment {
     private String mRecentAddress;
     private OnRestaurantSelectedListener mOnRestaurantSelectedListener;
 
-    public RestaurantListFragment() {}
+    private FindRestaurantsPresenter presenter;
+
+    public FindRestaurantsListFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,8 +75,9 @@ public class RestaurantListFragment extends Fragment {
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         mRecentAddress = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION_KEY, null);
+        presenter = new FindRestaurantsPresenterImpl(this, getActivity());
         if (mRecentAddress != null) {
-            getRestaurants(mRecentAddress);
+            presenter.getRestaurants(mRecentAddress);
         }
         return view;
     }
@@ -89,7 +93,7 @@ public class RestaurantListFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 addToSharedPreferences(query);
-                getRestaurants(query);
+                presenter.getRestaurants(query);
                 return false;
             }
 
@@ -109,33 +113,33 @@ public class RestaurantListFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    public void getRestaurants(String location) {
-        final YelpService yelpService = new YelpService();
-        yelpService.findRestaurants(location, new Callback() {
-
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) {
-                mRestaurants = yelpService.processResults(response);
-
-                getActivity().runOnUiThread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        mAdapter = new RestaurantListAdapter(getActivity(), mRestaurants, mOnRestaurantSelectedListener);
-                        mRecyclerView.setAdapter(mAdapter);
-                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-                        mRecyclerView.setLayoutManager(layoutManager);
-                        mRecyclerView.setHasFixedSize(true);
-                    }
-                });
-            }
-        });
-    }
+//    public void getRestaurants(String location) {
+//        final YelpService yelpService = new YelpService();
+//        yelpService.findRestaurants(location, new Callback() {
+//
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) {
+//                mRestaurants = yelpService.processResults(response);
+//
+//                getActivity().runOnUiThread(new Runnable() {
+//
+//                    @Override
+//                    public void run() {
+//                        mAdapter = new RestaurantListAdapter(getActivity(), mRestaurants, mOnRestaurantSelectedListener);
+//                        mRecyclerView.setAdapter(mAdapter);
+//                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+//                        mRecyclerView.setLayoutManager(layoutManager);
+//                        mRecyclerView.setHasFixedSize(true);
+//                    }
+//                });
+//            }
+//        });
+//    }
 
     private void addToSharedPreferences(String location) {
         mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, location).apply();
@@ -147,5 +151,15 @@ public class RestaurantListFragment extends Fragment {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         getActivity().finish();
+    }
+
+    @Override
+    public void displayResults(ArrayList<Restaurant> restaurants) {
+        mRestaurants = restaurants;
+        mAdapter = new RestaurantListAdapter(getActivity(), restaurants, mOnRestaurantSelectedListener);
+        mRecyclerView.setAdapter(mAdapter);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setHasFixedSize(true);
     }
 }

@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.epicodus.myrestaurants.Constants;
 import com.epicodus.myrestaurants.R;
+import com.epicodus.myrestaurants.find_restaurants.FindRestaurantsActivity;
 import com.epicodus.myrestaurants.models.Restaurant;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if(v == mFindRestaurantsButton) {
-            Intent intent = new Intent(MainActivity.this, RestaurantListActivity.class);
+            Intent intent = new Intent(MainActivity.this, FindRestaurantsActivity.class);
             startActivity(intent);
         }
         if (v == mSavedRestaurantsButton) {

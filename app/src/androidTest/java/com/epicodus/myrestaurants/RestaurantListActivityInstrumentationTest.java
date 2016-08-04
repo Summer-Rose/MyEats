@@ -3,7 +3,7 @@ package com.epicodus.myrestaurants;
 import android.support.test.rule.ActivityTestRule;
 import android.view.View;
 
-import com.epicodus.myrestaurants.ui.RestaurantListActivity;
+import com.epicodus.myrestaurants.find_restaurants.FindRestaurantsActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -21,8 +21,8 @@ import static org.hamcrest.core.IsNot.not;
 public class RestaurantListActivityInstrumentationTest {
 
     @Rule
-    public ActivityTestRule<RestaurantListActivity> activityTestRule =
-            new ActivityTestRule<>(RestaurantListActivity.class);
+    public ActivityTestRule<FindRestaurantsActivity> activityTestRule =
+            new ActivityTestRule<>(FindRestaurantsActivity.class);
 
     @Test
     public void listItemClickDisplaysToastWithCorrectRestaurant() {
