@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,19 +15,26 @@ import android.widget.TextView;
 
 import com.epicodus.myrestaurants.Constants;
 import com.epicodus.myrestaurants.R;
+import com.epicodus.myrestaurants.models.Restaurant;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, MainView {
     private Button mFindRestaurantsButton;
     private TextView mAppNameTextView;
     private Button mSavedRestaurantsButton;
     private Toolbar mToolbar;
+
+    MainPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bindViews();
+        presenter = new MainPresenterImpl(this);
+        presenter.getRestaurants("97271");
     }
 
     private void bindViews() {
@@ -79,6 +87,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v == mSavedRestaurantsButton) {
             Intent intent = new Intent(MainActivity.this, SavedRestaurantListActivity.class);
             startActivity(intent);
+        }
+    }
+
+    @Override
+    public void logResults(ArrayList<Restaurant> restaurants) {
+        for (Restaurant restaurant : restaurants) {
+            Log.d("Restaurant", restaurant.getName());
         }
     }
 }
