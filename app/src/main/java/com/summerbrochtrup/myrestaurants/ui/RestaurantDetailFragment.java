@@ -240,7 +240,7 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
                 .child(uid);
         DatabaseReference pushRef = restaurantRef.push();
         String pushId = pushRef.getKey();
-        mRestaurant.setPushId(pushId);
+        //mRestaurant.setPushId(pushId);
         pushRef.setValue(mRestaurant);
         Toast.makeText(getContext(), getResources().getString(R.string.saved_toast), Toast.LENGTH_SHORT).show();
     }
@@ -259,7 +259,7 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
         DatabaseReference ref = FirebaseDatabase.getInstance()
                 .getReference(Constants.FIREBASE_CHILD_RESTAURANTS)
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .child(mRestaurant.getPushId())
+                //.child(mRestaurant.getPushId())
                 .child(Constants.FIREBASE_CHILD_IMAGEURL);
         ref.setValue(imageEncoded);
     }
