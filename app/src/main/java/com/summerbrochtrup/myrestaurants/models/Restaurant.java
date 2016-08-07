@@ -1,5 +1,6 @@
 package com.summerbrochtrup.myrestaurants.models;
 
+import com.google.gson.annotations.Expose;
 import com.summerbrochtrup.myrestaurants.Constants;
 import com.google.gson.annotations.SerializedName;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @Parcel
 @Generated("org.jsonschema2pojo")
 public class Restaurant {
+    int databaseId;
     String name;
     @SerializedName(Constants.SERIALIZED_NAME_PHONE)
     String phone;
@@ -25,23 +27,36 @@ public class Restaurant {
     double latitude;
     double longitude;
     List<List<String>> categories = new ArrayList<>();
-
-    public List<String> getCategoryList() {
-        return categoryList;
-    }
-
-    public void setCategoryList(List<String> categoryList) {
-        this.categoryList = categoryList;
-    }
-
     List<String> categoryList = new ArrayList<>();
     @Transient
     Location location;
     @SerializedName(Constants.SERIALIZED_NAME_ID)
-    String restaurantId;
-    double distance;
-    String pushId;
-    String index;
+    String yelpId;
+
+    public Restaurant() {}
+
+    public Restaurant(int id, String name, String phone, String url, double rating, String imageUrl,
+                      List<String> address, double latitude, double longitude, List<String> categories, String yelpId) {
+        this.databaseId = id;
+        this.name = name;
+        this.phone = phone;
+        this.url = url;
+        this.rating = rating;
+        this.imageUrl = imageUrl;
+        this.address = address;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.categoryList = categories;
+        this.yelpId = yelpId;
+    }
+
+    public int getDatabaseId() {
+        return databaseId;
+    }
+
+    public void setDatabaseId(int id) {
+        this.databaseId = id;
+    }
 
     public String getName() {
         return name;
@@ -115,6 +130,14 @@ public class Restaurant {
         this.categories = categories;
     }
 
+    public List<String> getCategoryList() {
+        return categoryList;
+    }
+
+    public void setCategoryList(List<String> categoryList) {
+        this.categoryList = categoryList;
+    }
+
     public Location getLocation() {
         return location;
     }
@@ -123,35 +146,11 @@ public class Restaurant {
         this.location = location;
     }
 
-    public String getId() {
-        return restaurantId;
+    public String getYelpId() {
+        return yelpId;
     }
 
-    public void setId(String id) {
-        this.restaurantId = id;
-    }
-
-    public double getDistance() {
-        return distance;
-    }
-
-    public void setDistance(double distance) {
-        this.distance = distance;
-    }
-
-    public String getPushId() {
-        return pushId;
-    }
-
-    public void setPushId(String pushId) {
-        this.pushId = pushId;
-    }
-
-    public String getIndex() {
-        return index;
-    }
-
-    public void setIndex(String index) {
-        this.index = index;
+    public void setYelpId(String id) {
+        this.yelpId = id;
     }
 }
