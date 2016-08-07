@@ -16,6 +16,7 @@ import com.summerbrochtrup.myrestaurants.R;
 import com.summerbrochtrup.myrestaurants.models.Restaurant;
 import com.summerbrochtrup.myrestaurants.util.ItemTouchHelperViewHolder;
 import com.squareup.picasso.Picasso;
+import com.summerbrochtrup.myrestaurants.util.RestaurantPropertyHelper;
 
 import java.io.IOException;
 
@@ -49,7 +50,7 @@ public class FirebaseRestaurantViewHolder extends RecyclerView.ViewHolder implem
             }
         } else {
             Picasso.with(mContext)
-                    .load(restaurant.getLargeImageUrl())
+                    .load(RestaurantPropertyHelper.getLargeImageUrl(restaurant.getImageUrl()))
                     .resize(MAX_WIDTH, MAX_HEIGHT)
                     .centerCrop()
                     .into(mRestaurantImageView);

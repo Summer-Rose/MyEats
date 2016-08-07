@@ -41,6 +41,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
+import com.summerbrochtrup.myrestaurants.util.RestaurantPropertyHelper;
 
 import org.parceler.Parcels;
 
@@ -105,7 +106,7 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
             }
         } else {
             Picasso.with(view.getContext())
-                    .load(mRestaurant.getLargeImageUrl())
+                    .load(RestaurantPropertyHelper.getLargeImageUrl(mRestaurant.getImageUrl()))
                     .resize(MAX_WIDTH, MAX_HEIGHT)
                     .centerCrop()
                     .into(mImageLabel);
@@ -198,7 +199,7 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
         mFAB = (FloatingActionButton) view.findViewById(R.id.fab);
         mFAB.setOnClickListener(this);
         mNameLabel.setText(mRestaurant.getName());
-        mCategoriesLabel.setText(android.text.TextUtils.join(", ", mRestaurant.getCategories()));
+        mCategoriesLabel.setText(android.text.TextUtils.join(", ", mRestaurant.getCategoryList()));
         mRatingBar.setRating((float)mRestaurant.getRating());
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             mWebsiteLabel = (TextView) view.findViewById(R.id.websiteTextView);

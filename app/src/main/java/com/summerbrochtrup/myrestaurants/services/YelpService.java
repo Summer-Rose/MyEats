@@ -5,6 +5,10 @@ import android.widget.Toast;
 import com.summerbrochtrup.myrestaurants.Constants;
 import com.summerbrochtrup.myrestaurants.models.Restaurant;
 import com.summerbrochtrup.myrestaurants.ui.RestaurantListFragment;
+import com.summerbrochtrup.myrestaurants.util.RestaurantPropertyHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -57,6 +61,7 @@ public class YelpService implements Callback<YelpResponse> {
             YelpResponse apiResponse = response.body();
             for (Restaurant restaurant : apiResponse.getBusinesses()) {
                 restaurant.setAddress(restaurant.getLocation().getDisplayAddress());
+                restaurant.setCategoryList(RestaurantPropertyHelper.getCategories(restaurant.getCategories()));
             }
             mFragment.setRestaurants(apiResponse.getBusinesses());
         }

@@ -25,6 +25,16 @@ public class Restaurant {
     double latitude;
     double longitude;
     List<List<String>> categories = new ArrayList<>();
+
+    public List<String> getCategoryList() {
+        return categoryList;
+    }
+
+    public void setCategoryList(List<String> categoryList) {
+        this.categoryList = categoryList;
+    }
+
+    List<String> categoryList = new ArrayList<>();
     @Transient
     Location location;
     @SerializedName(Constants.SERIALIZED_NAME_ID)
@@ -143,10 +153,5 @@ public class Restaurant {
 
     public void setIndex(String index) {
         this.index = index;
-    }
-
-    public String getLargeImageUrl() {
-        String largeImageUrl = imageUrl.substring(0, imageUrl.length() - 6).concat("o.jpg");
-        return largeImageUrl;
     }
 }

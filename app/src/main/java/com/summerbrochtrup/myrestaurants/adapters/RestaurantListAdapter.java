@@ -20,6 +20,7 @@ import com.summerbrochtrup.myrestaurants.ui.RestaurantDetailActivity;
 import com.summerbrochtrup.myrestaurants.ui.RestaurantDetailFragment;
 import com.summerbrochtrup.myrestaurants.util.OnRestaurantSelectedListener;
 import com.squareup.picasso.Picasso;
+import com.summerbrochtrup.myrestaurants.util.RestaurantPropertyHelper;
 
 import org.parceler.Parcels;
 
@@ -92,13 +93,13 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
         public void bindRestaurant(Restaurant restaurant) {
             Picasso.with(mContext)
-                    .load(restaurant.getImageUrl())
+                    .load(RestaurantPropertyHelper.getLargeImageUrl(restaurant.getImageUrl()))
                     .resize(MAX_WIDTH, MAX_HEIGHT)
                     .centerCrop()
                     .into(mRestaurantImageView);
 
             mNameTextView.setText(restaurant.getName());
-            mCategoryTextView.setText(restaurant.getCategories().get(0).get(0));
+            mCategoryTextView.setText(restaurant.getCategoryList().get(0));
             mRatingTextView.setText(String.format(mContext.getResources().getString(R.string.rating_format), restaurant.getRating()));
         }
 
