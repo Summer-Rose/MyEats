@@ -101,7 +101,7 @@
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                tools:context="com.epicodus.myrestaurants.ui.MapsActivity" />
+                tools:context="com.summerbrochtrup.myrestaurants.ui.MapsActivity" />
 
         </LinearLayout>
 

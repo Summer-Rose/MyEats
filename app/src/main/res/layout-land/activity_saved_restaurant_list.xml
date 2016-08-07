@@ -34,7 +34,7 @@
 
         <fragment
             android:id="@+id/fragmentItemsList"
-            android:name="com.epicodus.myrestaurants.ui.SavedRestaurantListFragment"
+            android:name="com.summerbrochtrup.myrestaurants.ui.SavedRestaurantListFragment"
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:layout_weight="3"
