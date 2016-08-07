@@ -105,7 +105,7 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
             }
         } else {
             Picasso.with(view.getContext())
-                    .load(mRestaurant.getImageUrl())
+                    .load(mRestaurant.getLargeImageUrl())
                     .resize(MAX_WIDTH, MAX_HEIGHT)
                     .centerCrop()
                     .into(mImageLabel);

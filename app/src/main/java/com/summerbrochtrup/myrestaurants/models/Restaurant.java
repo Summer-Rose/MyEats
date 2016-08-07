@@ -66,7 +66,7 @@ public class Restaurant {
     }
 
     public String getImageUrl() {
-        return getLargeImageUrl(imageUrl);
+        return imageUrl;
     }
 
     public void setImageUrl(String imageUrl) {
@@ -145,7 +145,7 @@ public class Restaurant {
         this.index = index;
     }
 
-    public String getLargeImageUrl(String imageUrl) {
+    public String getLargeImageUrl() {
         String largeImageUrl = imageUrl.substring(0, imageUrl.length() - 6).concat("o.jpg");
         return largeImageUrl;
     }

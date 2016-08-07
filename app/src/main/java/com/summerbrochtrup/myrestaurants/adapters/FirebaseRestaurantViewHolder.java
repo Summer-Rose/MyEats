@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -48,10 +49,12 @@ public class FirebaseRestaurantViewHolder extends RecyclerView.ViewHolder implem
             }
         } else {
             Picasso.with(mContext)
-                    .load(restaurant.getImageUrl())
+                    .load(restaurant.getLargeImageUrl())
                     .resize(MAX_WIDTH, MAX_HEIGHT)
                     .centerCrop()
                     .into(mRestaurantImageView);
+
+            Log.d("image url", restaurant.getImageUrl());
         }
 
         nameTextView.setText(restaurant.getName());
