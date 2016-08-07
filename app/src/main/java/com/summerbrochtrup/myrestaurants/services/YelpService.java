@@ -62,6 +62,11 @@ public class YelpService implements Callback<YelpResponse> {
             for (Restaurant restaurant : apiResponse.getBusinesses()) {
                 restaurant.setAddress(restaurant.getLocation().getDisplayAddress());
                 restaurant.setCategoryList(RestaurantPropertyHelper.getCategories(restaurant.getCategories()));
+                double lat = restaurant.getLocation().getCoordinate().getLatitude();
+                double lng = restaurant.getLocation().getCoordinate().getLongitude();
+                restaurant.setLatitude(lat);
+                restaurant.setLongitude(lng);
+                //restaurant.setId(1);
             }
             mFragment.setRestaurants(apiResponse.getBusinesses());
         }

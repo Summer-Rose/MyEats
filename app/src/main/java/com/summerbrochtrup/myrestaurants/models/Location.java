@@ -15,6 +15,7 @@ import java.util.List;
 public class Location {
     @SerializedName(Constants.SERIALIZED_NAME_ADDRESS)
     private List<String> displayAddress = new ArrayList<>();
+    private Coordinate coordinate;
 
     public List<String> getDisplayAddress() {
         return displayAddress;
@@ -22,5 +23,13 @@ public class Location {
 
     public void setDisplayAddress(List<String> displayAddress) {
         this.displayAddress = displayAddress;
+    }
+
+    public Coordinate getCoordinate() {
+        return coordinate;
+    }
+
+    public void setCoordinate(Coordinate coordinate) {
+        this.coordinate = coordinate;
     }
 }
