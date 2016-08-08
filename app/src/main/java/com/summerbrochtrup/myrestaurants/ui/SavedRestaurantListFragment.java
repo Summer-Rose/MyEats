@@ -14,21 +14,13 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.summerbrochtrup.myrestaurants.Constants;
 import com.summerbrochtrup.myrestaurants.R;
-import com.summerbrochtrup.myrestaurants.adapters.FirebaseRestaurantListAdapter;
-import com.summerbrochtrup.myrestaurants.adapters.FirebaseRestaurantViewHolder;
-import com.summerbrochtrup.myrestaurants.adapters.RestaurantListAdapter;
 import com.summerbrochtrup.myrestaurants.adapters.SavedRestaurantListAdapter;
 import com.summerbrochtrup.myrestaurants.database.RestaurantDataSource;
 import com.summerbrochtrup.myrestaurants.models.Restaurant;
 import com.summerbrochtrup.myrestaurants.util.OnRestaurantSelectedListener;
 import com.summerbrochtrup.myrestaurants.util.OnStartDragListener;
 import com.summerbrochtrup.myrestaurants.util.SimpleItemTouchHelperCallback;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 
@@ -36,19 +28,19 @@ public class SavedRestaurantListFragment extends Fragment implements OnStartDrag
     private RecyclerView mRecyclerView;
     private ItemTouchHelper mItemTouchHelper;
     private SavedRestaurantListAdapter mAdapter;
-    //private OnRestaurantSelectedListener mOnRestaurantSelectedListener;
+    private OnRestaurantSelectedListener mOnRestaurantSelectedListener;
 
     public SavedRestaurantListFragment() {}
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        try {
-//            mOnRestaurantSelectedListener = (OnRestaurantSelectedListener) context;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(context.toString() + e.getMessage());
-//        }
-//    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mOnRestaurantSelectedListener = (OnRestaurantSelectedListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + e.getMessage());
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -79,7 +71,7 @@ public class SavedRestaurantListFragment extends Fragment implements OnStartDrag
     private void getRestaurants() {
         RestaurantDataSource dataSource = new RestaurantDataSource(getActivity());
         ArrayList<Restaurant> restaurants = dataSource.readRestaurants();
-        mAdapter = new SavedRestaurantListAdapter(getActivity(), restaurants, this);
+        mAdapter = new SavedRestaurantListAdapter(getActivity(), restaurants, this, mOnRestaurantSelectedListener);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mAdapter);

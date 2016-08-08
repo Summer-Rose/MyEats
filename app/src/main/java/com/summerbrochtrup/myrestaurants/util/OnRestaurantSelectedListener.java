@@ -3,9 +3,9 @@ package com.summerbrochtrup.myrestaurants.util;
 
 import com.summerbrochtrup.myrestaurants.models.Restaurant;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public interface OnRestaurantSelectedListener {
-    void onRestaurantSelected(Integer position, List<Restaurant> restaurants, String source);
+    void onRestaurantSelected(Integer position, ArrayList<Restaurant> restaurants, String source);
 
 }

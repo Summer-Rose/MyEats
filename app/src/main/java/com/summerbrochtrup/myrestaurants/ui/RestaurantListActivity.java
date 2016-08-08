@@ -13,11 +13,12 @@ import com.summerbrochtrup.myrestaurants.models.Restaurant;
 import com.summerbrochtrup.myrestaurants.util.OnRestaurantSelectedListener;
 import org.parceler.Parcels;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RestaurantListActivity extends AppCompatActivity implements OnRestaurantSelectedListener {
     private Integer mPosition;
-    private List<Restaurant> mRestaurants;
+    private ArrayList<Restaurant> mRestaurants;
     private String mSource;
 
     @Override
@@ -64,7 +65,7 @@ public class RestaurantListActivity extends AppCompatActivity implements OnResta
     }
 
     @Override
-    public void onRestaurantSelected(Integer position, List<Restaurant> restaurants, String source) {
+    public void onRestaurantSelected(Integer position, ArrayList<Restaurant> restaurants, String source) {
         mPosition = position;
         mRestaurants = restaurants;
         mSource = source;

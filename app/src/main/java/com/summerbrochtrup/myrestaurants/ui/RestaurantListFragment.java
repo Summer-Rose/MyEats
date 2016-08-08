@@ -13,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -106,12 +107,13 @@ public class RestaurantListFragment extends Fragment {
     }
 
     public void getRestaurants(String location) {
+        Log.d("get rest", location);
         YelpService service = new YelpService(this);
         service.getRestaurants(location);
     }
 
     public void setRestaurants(List<Restaurant> restaurants) {
-        mAdapter = new RestaurantListAdapter(getActivity(), restaurants, mOnRestaurantSelectedListener);
+        mAdapter = new RestaurantListAdapter(getActivity(), (ArrayList) restaurants, mOnRestaurantSelectedListener);
         mRecyclerView.setAdapter(mAdapter);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
