@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.summerbrochtrup.myrestaurants.models.Restaurant;
 
@@ -88,7 +89,7 @@ public class RestaurantDataSource {
                         Arrays.asList(TextUtils.split(",", getStringFromColumnName(cursor, SQLiteHelper.COLUMN_ADDRESS))),
                         Double.parseDouble(getStringFromColumnName(cursor, SQLiteHelper.COLUMN_LATITUDE)),
                         Double.parseDouble(getStringFromColumnName(cursor, SQLiteHelper.COLUMN_LONGITUDE)),
-                        Arrays.asList(TextUtils.split(",", getStringFromColumnName(cursor, SQLiteHelper.COLUMN_CATEGORIES))),
+                        Arrays.asList(getStringFromColumnName(cursor, SQLiteHelper.COLUMN_CATEGORIES).split(",")),
                         getStringFromColumnName(cursor, SQLiteHelper.COLUMN_YELP_ID)
                 );
                 restaurants.add(restaurant);
