@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.squareup.picasso.Picasso;
 import com.summerbrochtrup.myrestaurants.Constants;
 import com.summerbrochtrup.myrestaurants.R;
+import com.summerbrochtrup.myrestaurants.database.RestaurantDataSource;
 import com.summerbrochtrup.myrestaurants.models.Restaurant;
 import com.summerbrochtrup.myrestaurants.ui.RestaurantDetailActivity;
 import com.summerbrochtrup.myrestaurants.ui.RestaurantDetailFragment;
@@ -116,16 +117,17 @@ public class SavedRestaurantListAdapter extends RecyclerView.Adapter<SavedRestau
     @Override
     public void onItemDismiss(int position) {
         mRestaurants.remove(position);
+        //remove from database
 //        getRef(position).removeValue();
     }
 
-//    private void setIndexInFirebase() {
-//        for (Restaurant restaurant : mRestaurants) {
-//            int index = mRestaurants.indexOf(restaurant);
-//            DatabaseReference ref = getRef(index);
-//            ref.child(Constants.FIREBASE_QUERY_INDEX).setValue(Integer.toString(index));
-//        }
-//    }
+    public void setSortOrder() {
+        for (Restaurant restaurant : mRestaurants) {
+            restaurant.setSortOrder(mRestaurants.indexOf(restaurant));
+            RestaurantDataSource dataSource = new RestaurantDataSource(mContext);
+            dataSource.updateSortOrder(restaurant);
+        }
+    }
 
 
     public class RestaurantViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, ItemTouchHelperViewHolder {
