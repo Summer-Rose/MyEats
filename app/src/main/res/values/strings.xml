@@ -29,5 +29,7 @@
 
     <string name="photo_button">Take a photo</string>
 
+    <string name="transition_name_rest_img">restaurantImage</string>
+
 
 </resources>

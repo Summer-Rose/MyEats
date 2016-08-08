@@ -20,6 +20,7 @@
                 android:layout_width="130dp"
                 android:layout_height="120dp"
                 android:id="@+id/restaurantImageView"
+                android:transitionName="@string/transition_name_rest_img"
                 android:src="@drawable/waffles"
                 android:scaleType="centerCrop"/>
 

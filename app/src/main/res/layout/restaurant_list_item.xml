@@ -14,6 +14,7 @@
 
         <ImageView
             android:id="@+id/restaurantImageView"
+            android:transitionName="@string/transition_name_rest_img"
             android:layout_width="130dp"
             android:layout_height="120dp"
             android:src="@drawable/waffles"

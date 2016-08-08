@@ -1,8 +1,10 @@
 package com.summerbrochtrup.myrestaurants.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
@@ -121,7 +123,10 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
                 intent.putExtra(Constants.EXTRA_KEY_POSITION, itemPosition);
                 intent.putExtra(Constants.EXTRA_KEY_RESTAURANTS, Parcels.wrap(mRestaurants));
                 intent.putExtra(Constants.KEY_SOURCE, Constants.SOURCE_FIND);
-                mContext.startActivity(intent);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation((Activity) mContext, mRestaurantImageView,
+                                mContext.getResources().getString(R.string.transition_name_rest_img));
+                mContext.startActivity(intent, options.toBundle());
             }
         }
     }
