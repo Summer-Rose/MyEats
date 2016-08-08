@@ -48,31 +48,32 @@ import org.parceler.Parcels;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RestaurantDetailFragment extends Fragment implements View.OnClickListener, OnMapReadyCallback {
     private static final int MAX_WIDTH = 400;
     private static final int MAX_HEIGHT = 300;
     private static final int REQUEST_IMAGE_CAPTURE = 111;
-    private ImageView mImageLabel;
-    private TextView mNameLabel;
-    private TextView mCategoriesLabel;
+    private ImageView mImageView;
+    private TextView mNameTextView;
+    private TextView mCategoriesTextView;
     private RatingBar mRatingBar;
-    private TextView mWebsiteLabel;
+    private TextView mWebsiteTextView;
     private ImageView mWebsiteIcon;
-    private TextView mPhoneLabel;
+    private TextView mPhoneTextView;
     private ImageView mPhoneIcon;
-    private TextView mAddressLabel;
+    private TextView mAddressTextView;
     private ImageView mAddressIcon;
     private Button mBottomButton;
     private FloatingActionButton mFAB;
     private SupportMapFragment mMap;
     private Restaurant mRestaurant;
-    private List<Restaurant> mRestaurants;
+    private ArrayList<Restaurant> mRestaurants;
     private int mPosition;
     private String mSource;
 
-    public static RestaurantDetailFragment newInstance(List<Restaurant> restaurants, Integer position, String source) {
+    public static RestaurantDetailFragment newInstance(ArrayList<Restaurant> restaurants, Integer position, String source) {
         RestaurantDetailFragment restaurantDetailFragment = new RestaurantDetailFragment();
         Bundle args = new Bundle();
         args.putParcelable(Constants.EXTRA_KEY_RESTAURANTS, Parcels.wrap(restaurants));
@@ -101,7 +102,7 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
         if (!mRestaurant.getImageUrl().contains(Constants.HTTP_FILTER)) {
             try {
                 Bitmap image = decodeFromFirebaseBase64(mRestaurant.getImageUrl());
-                mImageLabel.setImageBitmap(image);
+                mImageView.setImageBitmap(image);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -110,7 +111,7 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
                     .load(RestaurantPropertyHelper.getLargeImageUrl(mRestaurant.getImageUrl()))
                     .resize(MAX_WIDTH, MAX_HEIGHT)
                     .centerCrop()
-                    .into(mImageLabel);
+                    .into(mImageView);
         }
         return view;
     }
@@ -131,18 +132,18 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        if (v == mWebsiteLabel || v == mWebsiteIcon) {
+        if (v == mWebsiteTextView || v == mWebsiteIcon) {
             Intent webIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse(mRestaurant.getUrl()));
             startActivity(webIntent);
         }
-        if (v == mPhoneLabel || v == mPhoneIcon) {
+        if (v == mPhoneTextView || v == mPhoneIcon) {
             Intent phoneIntent = new Intent(Intent.ACTION_DIAL,
                     Uri.parse(String.format(getResources().getString(R.string.tel_format),
                             mRestaurant.getPhone())));
             startActivity(phoneIntent);
         }
-        if (v == mAddressLabel || v == mAddressIcon) {
+        if (v == mAddressTextView || v == mAddressIcon) {
             Intent mapIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse(String.format(getResources().getString(R.string.map_format),
                             Double.toString(mRestaurant.getLatitude()),
@@ -156,7 +157,6 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
             }
         } else {
             if (v == mBottomButton || v == mFAB) {
-                saveRestaurantToFirebase();
                 saveRestaurant();
             }
         }
@@ -178,8 +178,8 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == getActivity().RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get(Constants.BITMAP_EXTRA);
-            mImageLabel.setImageBitmap(imageBitmap);
-            encodeBitmapAndSaveToFirebase(imageBitmap);
+            mImageView.setImageBitmap(imageBitmap);
+            //encodeBitmapAndSaveToFirebase(imageBitmap);
         }
     }
 
@@ -194,27 +194,27 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
     }
 
     private void bindViews(View view) {
-        mImageLabel = (ImageView) view.findViewById(R.id.restaurantImageView);
-        mNameLabel = (TextView) view.findViewById(R.id.restaurantNameTextView);
-        mCategoriesLabel = (TextView) view.findViewById(R.id.categoryTextView);
+        mImageView = (ImageView) view.findViewById(R.id.restaurantImageView);
+        mNameTextView = (TextView) view.findViewById(R.id.restaurantNameTextView);
+        mCategoriesTextView = (TextView) view.findViewById(R.id.categoryTextView);
         mRatingBar = (RatingBar) view.findViewById(R.id.ratingBar);
         mFAB = (FloatingActionButton) view.findViewById(R.id.fab);
         mFAB.setOnClickListener(this);
-        mNameLabel.setText(mRestaurant.getName());
-        mCategoriesLabel.setText(android.text.TextUtils.join(", ", mRestaurant.getCategoryList()));
+        mNameTextView.setText(mRestaurant.getName());
+        mCategoriesTextView.setText(android.text.TextUtils.join(", ", mRestaurant.getCategoryList()));
         mRatingBar.setRating((float)mRestaurant.getRating());
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            mWebsiteLabel = (TextView) view.findViewById(R.id.websiteTextView);
-            mPhoneLabel = (TextView) view.findViewById(R.id.phoneTextView);
-            mAddressLabel = (TextView) view.findViewById(R.id.addressTextView);
-            mBottomButton = (Button) view.findViewById(R.id.saveRestaurantButton);
+            mWebsiteTextView = (TextView) view.findViewById(R.id.websiteTextView);
+            mPhoneTextView = (TextView) view.findViewById(R.id.phoneTextView);
+            mAddressTextView = (TextView) view.findViewById(R.id.addressTextView);
+            mBottomButton = (Button) view.findViewById(R.id.bottomButton);
             mBottomButton.setOnClickListener(this);
-            mPhoneLabel.setOnClickListener(this);
-            mAddressLabel.setOnClickListener(this);
+            mPhoneTextView.setOnClickListener(this);
+            mAddressTextView.setOnClickListener(this);
             Toolbar toolbar = (Toolbar) view.findViewById(R.id.main_toolbar);
             ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
             setHasOptionsMenu(true);
-            mAddressLabel.setText(android.text.TextUtils.join(", ", mRestaurant.getAddress()));
+            mAddressTextView.setText(android.text.TextUtils.join(", ", mRestaurant.getAddress()));
             CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) view.findViewById(R.id.main_collapsing);
             collapsingToolbarLayout.setTitle(getResources().getString(R.string.app_name));
             collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
@@ -229,22 +229,10 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
         }
         if (mSource.equals(Constants.SOURCE_SAVED)) {
             mFAB.setImageResource(R.drawable.ic_camera_alt_white_24dp);
-            mBottomButton.setText(getResources().getString(R.string.photo_button));
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                mBottomButton.setText(getResources().getString(R.string.photo_button));
+            }
         }
-    }
-
-    private void saveRestaurantToFirebase() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = user.getUid();
-        DatabaseReference restaurantRef = FirebaseDatabase
-                .getInstance()
-                .getReference(Constants.FIREBASE_CHILD_RESTAURANTS)
-                .child(uid);
-        DatabaseReference pushRef = restaurantRef.push();
-        String pushId = pushRef.getKey();
-        //mRestaurant.setPushId(pushId);
-        pushRef.setValue(mRestaurant);
-        Toast.makeText(getContext(), getResources().getString(R.string.saved_toast), Toast.LENGTH_SHORT).show();
     }
 
     private void saveRestaurant() {
@@ -259,17 +247,17 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
         }
     }
 
-    public void encodeBitmapAndSaveToFirebase(Bitmap bitmap) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        String imageEncoded = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
-        DatabaseReference ref = FirebaseDatabase.getInstance()
-                .getReference(Constants.FIREBASE_CHILD_RESTAURANTS)
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                //.child(mRestaurant.getPushId())
-                .child(Constants.FIREBASE_CHILD_IMAGEURL);
-        ref.setValue(imageEncoded);
-    }
+//    public void encodeBitmapAndSaveToFirebase(Bitmap bitmap) {
+//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+//        String imageEncoded = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+//        DatabaseReference ref = FirebaseDatabase.getInstance()
+//                .getReference(Constants.FIREBASE_CHILD_RESTAURANTS)
+//                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+//                //.child(mRestaurant.getPushId())
+//                .child(Constants.FIREBASE_CHILD_IMAGEURL);
+//        ref.setValue(imageEncoded);
+//    }
 
     public static Bitmap decodeFromFirebaseBase64(String image) throws IOException {
         byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
