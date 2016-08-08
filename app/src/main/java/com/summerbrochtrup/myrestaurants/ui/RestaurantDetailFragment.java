@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.summerbrochtrup.myrestaurants.Constants;
 import com.summerbrochtrup.myrestaurants.R;
+import com.summerbrochtrup.myrestaurants.database.RestaurantDataSource;
 import com.summerbrochtrup.myrestaurants.models.Restaurant;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -156,6 +157,7 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
         } else {
             if (v == mBottomButton || v == mFAB) {
                 saveRestaurantToFirebase();
+                saveRestaurant();
             }
         }
     }
@@ -243,6 +245,11 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
         //mRestaurant.setPushId(pushId);
         pushRef.setValue(mRestaurant);
         Toast.makeText(getContext(), getResources().getString(R.string.saved_toast), Toast.LENGTH_SHORT).show();
+    }
+
+    private void saveRestaurant() {
+        RestaurantDataSource dataSource = new RestaurantDataSource(getActivity());
+        dataSource.create(mRestaurant);
     }
 
     public void onLaunchCamera() {
