@@ -35,6 +35,7 @@ import java.util.ArrayList;
 public class SavedRestaurantListFragment extends Fragment implements OnStartDragListener {
     private RecyclerView mRecyclerView;
     private ItemTouchHelper mItemTouchHelper;
+    private SavedRestaurantListAdapter mAdapter;
     //private OnRestaurantSelectedListener mOnRestaurantSelectedListener;
 
     public SavedRestaurantListFragment() {}
@@ -72,47 +73,18 @@ public class SavedRestaurantListFragment extends Fragment implements OnStartDrag
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-        //mFirebaseAdapter.cleanup();
-        //mFirebaseAdapter.unregisterAdapterDataObserver(mDataObserver);
+        mAdapter.setSortOrder();
     }
-
-//    private void setUpFirebaseAdapter() {
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        String uid = user.getUid();
-//        Query query = FirebaseDatabase.getInstance()
-//                .getReference(Constants.FIREBASE_CHILD_RESTAURANTS)
-//                .child(uid)
-//                .orderByChild(Constants.FIREBASE_QUERY_INDEX);
-//        mFirebaseAdapter = new FirebaseRestaurantListAdapter(Restaurant.class,
-//                R.layout.restaurant_list_item_drag, FirebaseRestaurantViewHolder.class,
-//                query, this, getActivity());
-//        mRecyclerView.setHasFixedSize(true);
-//        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        mRecyclerView.setAdapter(mFirebaseAdapter);
-//
-//        mDataObserver = new RecyclerView.AdapterDataObserver() {
-//            @Override
-//            public void onItemRangeInserted(int positionStart, int itemCount) {
-//                super.onItemRangeInserted(positionStart, itemCount);
-//                mFirebaseAdapter.notifyDataSetChanged();
-//            }
-//        };
-//        mFirebaseAdapter.registerAdapterDataObserver(mDataObserver);
-//        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mFirebaseAdapter);
-//        mItemTouchHelper = new ItemTouchHelper(callback);
-//        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
-//    }
 
     private void getRestaurants() {
         RestaurantDataSource dataSource = new RestaurantDataSource(getActivity());
         ArrayList<Restaurant> restaurants = dataSource.readRestaurants();
-        SavedRestaurantListAdapter adapter = new SavedRestaurantListAdapter(getActivity(), restaurants, this);
+        mAdapter = new SavedRestaurantListAdapter(getActivity(), restaurants, this);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setAdapter(adapter);
+        mRecyclerView.setAdapter(mAdapter);
 
-        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mAdapter);
         mItemTouchHelper = new ItemTouchHelper(callback);
         mItemTouchHelper.attachToRecyclerView(mRecyclerView);
 
