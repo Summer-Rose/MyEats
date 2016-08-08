@@ -3,6 +3,7 @@ package com.summerbrochtrup.myrestaurants.services;
 import android.widget.Toast;
 
 import com.summerbrochtrup.myrestaurants.Constants;
+import com.summerbrochtrup.myrestaurants.database.RestaurantDataSource;
 import com.summerbrochtrup.myrestaurants.models.Restaurant;
 import com.summerbrochtrup.myrestaurants.ui.RestaurantListFragment;
 import com.summerbrochtrup.myrestaurants.util.RestaurantPropertyHelper;
@@ -66,7 +67,8 @@ public class YelpService implements Callback<YelpResponse> {
                 double lng = restaurant.getLocation().getCoordinate().getLongitude();
                 restaurant.setLatitude(lat);
                 restaurant.setLongitude(lng);
-                //restaurant.setId(1);
+                RestaurantDataSource dataSource = new RestaurantDataSource(mFragment.getActivity());
+                restaurant.setSortOrder(dataSource.getNumOfRestaurants());
             }
             mFragment.setRestaurants(apiResponse.getBusinesses());
         }
