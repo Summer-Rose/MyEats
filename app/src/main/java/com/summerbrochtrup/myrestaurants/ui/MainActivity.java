@@ -10,15 +10,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.summerbrochtrup.myrestaurants.Constants;
 import com.summerbrochtrup.myrestaurants.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button mFindRestaurantsButton;
-    private TextView mAppNameTextView;
     private Button mSavedRestaurantsButton;
     private Toolbar mToolbar;
 
@@ -33,14 +34,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         mFindRestaurantsButton = (Button) findViewById(R.id.findRestaurantsButton);
-        mAppNameTextView = (TextView) findViewById(R.id.appNameTextView);
         mSavedRestaurantsButton = (Button) findViewById(R.id.savedRestaurantsButton);
-        Typeface ostrichFont = Typeface.createFromAsset(getAssets(), Constants.FONT_OSTRICH_REGULAR);
-        mAppNameTextView.setTypeface(ostrichFont);
-        getSupportActionBar().setTitle(String.format(
-                getResources().getString(R.string.welcome_toolbar_title),
-                FirebaseAuth.getInstance().getCurrentUser().getDisplayName()));
-        mAppNameTextView.setOnClickListener(this);
+        TextView toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
+        getSupportActionBar().setTitle("");
+        toolbarTitle.setText("Welcome, " + FirebaseAuth.getInstance().getCurrentUser().getDisplayName() + "!");
         mFindRestaurantsButton.setOnClickListener(this);
         mSavedRestaurantsButton.setOnClickListener(this);
     }
