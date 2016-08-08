@@ -42,14 +42,15 @@ public class SavedRestaurantListAdapter extends RecyclerView.Adapter<SavedRestau
     private static final int MAX_HEIGHT = 200;
     private List<Restaurant> mRestaurants = new ArrayList<>();
     private Context mContext;
-
     private OnStartDragListener mOnStartDragListener;
     private int mOrientation;
+    private RestaurantDataSource mDataSource;
 
     public SavedRestaurantListAdapter(Context context, List<Restaurant> restaurants, OnStartDragListener onStartDragListener) {
         mContext = context;
         mRestaurants = restaurants;
         mOnStartDragListener = onStartDragListener;
+        mDataSource = new RestaurantDataSource(context);
     }
 
     @Override
@@ -116,16 +117,16 @@ public class SavedRestaurantListAdapter extends RecyclerView.Adapter<SavedRestau
 
     @Override
     public void onItemDismiss(int position) {
+        mDataSource.delete(mRestaurants.get(position).getDatabaseId());
         mRestaurants.remove(position);
-        //remove from database
-//        getRef(position).removeValue();
+        notifyItemRemoved(position);
     }
 
     public void setSortOrder() {
         for (Restaurant restaurant : mRestaurants) {
             restaurant.setSortOrder(mRestaurants.indexOf(restaurant));
-            RestaurantDataSource dataSource = new RestaurantDataSource(mContext);
-            dataSource.updateSortOrder(restaurant);
+            mDataSource = new RestaurantDataSource(mContext);
+            mDataSource.updateSortOrder(restaurant);
         }
     }
 

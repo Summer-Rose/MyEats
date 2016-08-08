@@ -125,6 +125,17 @@ public class RestaurantDataSource {
         close(database);
     }
 
+    public void delete(int restaurantId) {
+        SQLiteDatabase database = open();
+        database.beginTransaction();
+        database.delete(SQLiteHelper.RESTAURANTS_TABLE,
+                "_Id=" + restaurantId,
+                null);
+        database.setTransactionSuccessful();
+        database.endTransaction();
+        close(database);
+    }
+
     private int getIntFromColumnName(Cursor cursor, String columnName) {
         int columnIndex = cursor.getColumnIndex(columnName);
         return cursor.getInt(columnIndex);
