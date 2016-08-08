@@ -32,11 +32,12 @@ public class Restaurant {
     Location location;
     @SerializedName(Constants.SERIALIZED_NAME_ID)
     String yelpId;
+    int sortOrder;
 
     public Restaurant() {}
 
     public Restaurant(int id, String name, String phone, String url, double rating, String imageUrl,
-                      List<String> address, double latitude, double longitude, List<String> categories, String yelpId) {
+                      List<String> address, double latitude, double longitude, List<String> categories, String yelpId, int sortOrder) {
         this.databaseId = id;
         this.name = name;
         this.phone = phone;
@@ -48,6 +49,7 @@ public class Restaurant {
         this.longitude = longitude;
         this.categoryList = categories;
         this.yelpId = yelpId;
+        this.sortOrder = sortOrder;
     }
 
     public int getDatabaseId() {
@@ -152,5 +154,13 @@ public class Restaurant {
 
     public void setYelpId(String id) {
         this.yelpId = id;
+    }
+
+    public int getSortOrder() {
+        return sortOrder;
+    }
+
+    public void setSortOrder(int sortOrder) {
+        this.sortOrder = sortOrder;
     }
 }
