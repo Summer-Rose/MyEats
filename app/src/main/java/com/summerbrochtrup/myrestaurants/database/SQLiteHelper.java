@@ -22,6 +22,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_LONGITUDE = "LONGITUDE";
     public static final String COLUMN_CATEGORIES = "CATEGORIES";
     public static final String COLUMN_YELP_ID = "YELP_ID";
+    public static final String COLUMN_SORT_ORDER = "SORT_ORDER";
     private static final String TAG = SQLiteHelper.class.getSimpleName();
     private static String CREATE_RESTAURANTS_TABLE = "CREATE TABLE " + RESTAURANTS_TABLE
             + "(" + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -34,7 +35,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             + COLUMN_LATITUDE + " TEXT, "
             + COLUMN_LONGITUDE + " TEXT, "
             + COLUMN_CATEGORIES + " TEXT, "
-            + COLUMN_YELP_ID + " TEXT)";
+            + COLUMN_YELP_ID + " TEXT, "
+            + COLUMN_SORT_ORDER + " INTEGER)";
 
 
     public SQLiteHelper(Context context) {
