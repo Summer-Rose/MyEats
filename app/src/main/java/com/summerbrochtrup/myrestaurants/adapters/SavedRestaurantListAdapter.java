@@ -1,12 +1,18 @@
 package com.summerbrochtrup.myrestaurants.adapters;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,6 +36,7 @@ import com.summerbrochtrup.myrestaurants.util.RestaurantPropertyHelper;
 
 import org.parceler.Parcels;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -40,23 +47,25 @@ import java.util.List;
 public class SavedRestaurantListAdapter extends RecyclerView.Adapter<SavedRestaurantListAdapter.RestaurantViewHolder> implements ItemTouchHelperAdapter {
     private static final int MAX_WIDTH = 200;
     private static final int MAX_HEIGHT = 200;
-    private List<Restaurant> mRestaurants = new ArrayList<>();
+    private ArrayList<Restaurant> mRestaurants = new ArrayList<>();
     private Context mContext;
     private OnStartDragListener mOnStartDragListener;
     private int mOrientation;
     private RestaurantDataSource mDataSource;
+    private OnRestaurantSelectedListener mOnRestaurantSelectedListener;
 
-    public SavedRestaurantListAdapter(Context context, List<Restaurant> restaurants, OnStartDragListener onStartDragListener) {
+    public SavedRestaurantListAdapter(Context context, ArrayList<Restaurant> restaurants, OnStartDragListener onStartDragListener, OnRestaurantSelectedListener restaurantSelectedListener) {
         mContext = context;
         mRestaurants = restaurants;
         mOnStartDragListener = onStartDragListener;
+        mOnRestaurantSelectedListener = restaurantSelectedListener;
         mDataSource = new RestaurantDataSource(context);
     }
 
     @Override
     public SavedRestaurantListAdapter.RestaurantViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.restaurant_list_item_drag, parent, false);
-        final RestaurantViewHolder viewHolder = new RestaurantViewHolder(view, mRestaurants);
+        final RestaurantViewHolder viewHolder = new RestaurantViewHolder(view, mRestaurants, mOnRestaurantSelectedListener);
         mOrientation = viewHolder.itemView.getResources().getConfiguration().orientation;
         if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
             createDetailFragment(0);
@@ -138,14 +147,16 @@ public class SavedRestaurantListAdapter extends RecyclerView.Adapter<SavedRestau
         private TextView mRatingTextView;
         private Context mContext;
         private int mOrientation;
-        private List<Restaurant> mRestaurants = new ArrayList<>();
+        private ArrayList<Restaurant> mRestaurants = new ArrayList<>();
+        private OnRestaurantSelectedListener mRestaurantSelectedListener;
 
-        public RestaurantViewHolder(View itemView, List<Restaurant> restaurants) {
+        public RestaurantViewHolder(View itemView, ArrayList<Restaurant> restaurants, OnRestaurantSelectedListener restaurantSelectedListener) {
             super(itemView);
             bindViews(itemView);
             mContext = itemView.getContext();
             mOrientation = itemView.getResources().getConfiguration().orientation;
             mRestaurants = restaurants;
+            mRestaurantSelectedListener = restaurantSelectedListener;
             if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
                 createDetailFragment(0);
             }
@@ -160,15 +171,24 @@ public class SavedRestaurantListAdapter extends RecyclerView.Adapter<SavedRestau
         }
 
         public void bindRestaurant(Restaurant restaurant) {
-            Picasso.with(mContext)
-                    .load(RestaurantPropertyHelper.getLargeImageUrl(restaurant.getImageUrl()))
-                    .resize(MAX_WIDTH, MAX_HEIGHT)
-                    .centerCrop()
-                    .into(mRestaurantImageView);
-
             mNameTextView.setText(restaurant.getName());
             mCategoryTextView.setText(restaurant.getCategoryList().get(0));
             mRatingTextView.setText(String.format(mContext.getResources().getString(R.string.rating_format), restaurant.getRating()));
+
+            if (!restaurant.getImageUrl().contains("http")) {
+                try {
+                    Bitmap imageBitmap = decodeFromFirebaseBase64(restaurant.getImageUrl());
+                    mRestaurantImageView.setImageBitmap(imageBitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Picasso.with(mContext)
+                        .load(RestaurantPropertyHelper.getLargeImageUrl(restaurant.getImageUrl()))
+                        .resize(MAX_WIDTH, MAX_HEIGHT)
+                        .centerCrop()
+                        .into(mRestaurantImageView);
+            }
         }
 
         private void createDetailFragment(int position) {
@@ -181,6 +201,7 @@ public class SavedRestaurantListAdapter extends RecyclerView.Adapter<SavedRestau
         @Override
         public void onClick(View v) {
             int itemPosition = getLayoutPosition();
+            mRestaurantSelectedListener.onRestaurantSelected(itemPosition, mRestaurants, Constants.SOURCE_FIND);
             if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
                 createDetailFragment(itemPosition);
             } else {
@@ -194,12 +215,23 @@ public class SavedRestaurantListAdapter extends RecyclerView.Adapter<SavedRestau
 
         @Override
         public void onItemSelected() {
-
+            AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(mContext,
+                    R.animator.drag_scale_on);
+            set.setTarget(itemView);
+            set.start();
         }
 
         @Override
         public void onItemClear() {
+            AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(mContext,
+                    R.animator.drag_scale_off);
+            set.setTarget(itemView);
+            set.start();
+        }
 
+        public Bitmap decodeFromFirebaseBase64(String image) throws IOException {
+            byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
+            return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
         }
     }
 }

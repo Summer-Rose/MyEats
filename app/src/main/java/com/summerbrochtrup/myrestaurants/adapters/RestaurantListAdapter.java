@@ -31,11 +31,11 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     private static final int MAX_WIDTH = 200;
     private static final int MAX_HEIGHT = 200;
 
-    private List<Restaurant> mRestaurants = new ArrayList<>();
+    private ArrayList<Restaurant> mRestaurants = new ArrayList<>();
     private Context mContext;
     private OnRestaurantSelectedListener mOnRestaurantSelectedListener;
 
-    public RestaurantListAdapter(Context context, List<Restaurant> restaurants, OnRestaurantSelectedListener restaurantSelectedListener) {
+    public RestaurantListAdapter(Context context, ArrayList<Restaurant> restaurants, OnRestaurantSelectedListener restaurantSelectedListener) {
         mContext = context;
         mRestaurants = restaurants;
         mOnRestaurantSelectedListener = restaurantSelectedListener;
@@ -67,11 +67,11 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         private TextView mRatingTextView;
         private Context mContext;
         private int mOrientation;
-        private List<Restaurant> mRestaurants = new ArrayList<>();
+        private ArrayList<Restaurant> mRestaurants = new ArrayList<>();
         private OnRestaurantSelectedListener mRestaurantSelectedListener;
 
 
-        public RestaurantViewHolder(View itemView, List<Restaurant> restaurants, OnRestaurantSelectedListener restaurantSelectedListener) {
+        public RestaurantViewHolder(View itemView, ArrayList<Restaurant> restaurants, OnRestaurantSelectedListener restaurantSelectedListener) {
             super(itemView);
             bindViews(itemView);
             mContext = itemView.getContext();
