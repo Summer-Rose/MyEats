@@ -3,6 +3,7 @@ package com.summerbrochtrup.myrestaurants.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 import android.text.TextUtils;
@@ -49,6 +50,7 @@ public class RestaurantDataSource {
         values.put(SQLiteHelper.COLUMN_LONGITUDE, restaurant.getLongitude());
         values.put(SQLiteHelper.COLUMN_CATEGORIES, TextUtils.join(",", restaurant.getCategoryList()));
         values.put(SQLiteHelper.COLUMN_YELP_ID, restaurant.getYelpId());
+        values.put(SQLiteHelper.COLUMN_SORT_ORDER, restaurant.getSortOrder());
         long restaurantID = database.insert(SQLiteHelper.RESTAURANTS_TABLE, null, values);
         database.setTransactionSuccessful();
         database.endTransaction();
@@ -70,13 +72,14 @@ public class RestaurantDataSource {
                         SQLiteHelper.COLUMN_LATITUDE,
                         SQLiteHelper.COLUMN_LONGITUDE,
                         SQLiteHelper.COLUMN_CATEGORIES,
-                        SQLiteHelper.COLUMN_YELP_ID
+                        SQLiteHelper.COLUMN_YELP_ID,
+                        SQLiteHelper.COLUMN_SORT_ORDER
                 },
                 null, //Selection
                 null, //selection args
                 null, //group by
                 null, //having
-                null); //order
+                SQLiteHelper.COLUMN_SORT_ORDER); //order
         ArrayList<Restaurant> restaurants = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
@@ -90,7 +93,8 @@ public class RestaurantDataSource {
                         Double.parseDouble(getStringFromColumnName(cursor, SQLiteHelper.COLUMN_LATITUDE)),
                         Double.parseDouble(getStringFromColumnName(cursor, SQLiteHelper.COLUMN_LONGITUDE)),
                         Arrays.asList(getStringFromColumnName(cursor, SQLiteHelper.COLUMN_CATEGORIES).split(",")),
-                        getStringFromColumnName(cursor, SQLiteHelper.COLUMN_YELP_ID)
+                        getStringFromColumnName(cursor, SQLiteHelper.COLUMN_YELP_ID),
+                        getIntFromColumnName(cursor, SQLiteHelper.COLUMN_SORT_ORDER)
                 );
                 restaurants.add(restaurant);
             } while(cursor.moveToNext());
@@ -98,6 +102,27 @@ public class RestaurantDataSource {
         cursor.close();
         close(database);
         return restaurants;
+    }
+
+    public int getNumOfRestaurants() {
+        SQLiteDatabase database = open();
+        long cnt  = DatabaseUtils.queryNumEntries(database, SQLiteHelper.RESTAURANTS_TABLE);
+        database.close();
+        return (int) cnt;
+    }
+
+    public void updateSortOrder(Restaurant restaurant) {
+        SQLiteDatabase database = open();
+        database.beginTransaction();
+        ContentValues updateTimerValues = new ContentValues();
+        updateTimerValues.put(SQLiteHelper.COLUMN_SORT_ORDER, restaurant.getSortOrder());
+        database.update(SQLiteHelper.RESTAURANTS_TABLE,
+                updateTimerValues,
+                String.format("%s=%d", BaseColumns._ID, restaurant.getDatabaseId()),
+                null);
+        database.setTransactionSuccessful();
+        database.endTransaction();
+        close(database);
     }
 
     private int getIntFromColumnName(Cursor cursor, String columnName) {
