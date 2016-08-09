@@ -32,13 +32,10 @@ import java.util.List;
 public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAdapter.RestaurantViewHolder> {
     private static final int MAX_WIDTH = 200;
     private static final int MAX_HEIGHT = 200;
-
     private ArrayList<Restaurant> mRestaurants = new ArrayList<>();
-    private Context mContext;
     private OnRestaurantSelectedListener mOnRestaurantSelectedListener;
 
-    public RestaurantListAdapter(Context context, ArrayList<Restaurant> restaurants, OnRestaurantSelectedListener restaurantSelectedListener) {
-        mContext = context;
+    public RestaurantListAdapter(ArrayList<Restaurant> restaurants, OnRestaurantSelectedListener restaurantSelectedListener) {
         mRestaurants = restaurants;
         mOnRestaurantSelectedListener = restaurantSelectedListener;
     }
@@ -60,8 +57,6 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         return mRestaurants.size();
     }
 
-
-
     public class RestaurantViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView mRestaurantImageView;
         private TextView mNameTextView;
@@ -71,7 +66,6 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         private int mOrientation;
         private ArrayList<Restaurant> mRestaurants = new ArrayList<>();
         private OnRestaurantSelectedListener mRestaurantSelectedListener;
-
 
         public RestaurantViewHolder(View itemView, ArrayList<Restaurant> restaurants, OnRestaurantSelectedListener restaurantSelectedListener) {
             super(itemView);
