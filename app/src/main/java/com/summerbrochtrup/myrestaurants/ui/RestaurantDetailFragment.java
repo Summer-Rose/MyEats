@@ -96,23 +96,14 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_restaurant_detail, container, false);
-        bindViews(view);
+        bindRegularViews(view);
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            bindPortraitView(view);
+        } else {
+            bindLandscapeViews(view);
+        }
         mMap = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mMap.getMapAsync(this);
-        if (!mRestaurant.getImageUrl().contains(Constants.HTTP_FILTER)) {
-            try {
-                Bitmap image = decodeFromFirebaseBase64(mRestaurant.getImageUrl());
-                mImageView.setImageBitmap(image);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            Picasso.with(view.getContext())
-                    .load(RestaurantPropertyHelper.getLargeImageUrl(mRestaurant.getImageUrl()))
-                    .resize(MAX_WIDTH, MAX_HEIGHT)
-                    .centerCrop()
-                    .into(mImageView);
-        }
         return view;
     }
 
@@ -193,45 +184,56 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
         }
     }
 
-    private void bindViews(View view) {
+    private void bindRegularViews(View view) {
         mImageView = (ImageView) view.findViewById(R.id.restaurantImageView);
+        Picasso.with(view.getContext())
+                .load(RestaurantPropertyHelper.getLargeImageUrl(mRestaurant.getImageUrl()))
+                .resize(MAX_WIDTH, MAX_HEIGHT)
+                .centerCrop()
+                .into(mImageView);
         mNameTextView = (TextView) view.findViewById(R.id.restaurantNameTextView);
+        mNameTextView.setText(mRestaurant.getName());
         mCategoriesTextView = (TextView) view.findViewById(R.id.categoryTextView);
+        mCategoriesTextView.setText(android.text.TextUtils.join(", ", mRestaurant.getCategoryList()));
         mRatingBar = (RatingBar) view.findViewById(R.id.ratingBar);
+        mRatingBar.setRating((float)mRestaurant.getRating());
         mFAB = (FloatingActionButton) view.findViewById(R.id.fab);
         mFAB.setOnClickListener(this);
-        mNameTextView.setText(mRestaurant.getName());
-        mCategoriesTextView.setText(android.text.TextUtils.join(", ", mRestaurant.getCategoryList()));
-        mRatingBar.setRating((float)mRestaurant.getRating());
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            mWebsiteTextView = (TextView) view.findViewById(R.id.websiteTextView);
-            mPhoneTextView = (TextView) view.findViewById(R.id.phoneTextView);
-            mAddressTextView = (TextView) view.findViewById(R.id.addressTextView);
-            mBottomButton = (Button) view.findViewById(R.id.bottomButton);
-            mBottomButton.setOnClickListener(this);
-            mPhoneTextView.setOnClickListener(this);
-            mAddressTextView.setOnClickListener(this);
-            Toolbar toolbar = (Toolbar) view.findViewById(R.id.main_toolbar);
-            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-            setHasOptionsMenu(true);
-            mAddressTextView.setText(android.text.TextUtils.join(", ", mRestaurant.getAddress()));
-            CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) view.findViewById(R.id.main_collapsing);
-            collapsingToolbarLayout.setTitle(getResources().getString(R.string.app_name));
-            collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
-            collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.colorPrimary));
-        } else {
-            mWebsiteIcon = (ImageView) view.findViewById(R.id.websiteIcon);
-            mPhoneIcon = (ImageView) view.findViewById(R.id.phoneIcon);
-            mAddressIcon = (ImageView) view.findViewById(R.id.addressIcon);
-            mWebsiteIcon.setOnClickListener(this);
-            mPhoneIcon.setOnClickListener(this);
-            mAddressIcon.setOnClickListener(this);
-        }
+    }
+
+    private void bindPortraitView(View view) {
+        mWebsiteTextView = (TextView) view.findViewById(R.id.websiteTextView);
+        mWebsiteTextView.setOnClickListener(this);
+        mPhoneTextView = (TextView) view.findViewById(R.id.phoneTextView);
+        mPhoneTextView.setText(mRestaurant.getPhone());
+        mPhoneTextView.setOnClickListener(this);
+        mAddressTextView = (TextView) view.findViewById(R.id.addressTextView);
+        mAddressTextView.setText(android.text.TextUtils.join(", ", mRestaurant.getAddress()));
+        mAddressTextView.setOnClickListener(this);
+        mBottomButton = (Button) view.findViewById(R.id.bottomButton);
+        mBottomButton.setOnClickListener(this);
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.main_toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        setHasOptionsMenu(true);
+        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) view.findViewById(R.id.main_collapsing);
+        collapsingToolbarLayout.setTitle(getResources().getString(R.string.app_name));
+        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
+        collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.colorPrimary));
         if (mSource.equals(Constants.SOURCE_SAVED)) {
             mFAB.setImageResource(R.drawable.ic_camera_alt_white_24dp);
-            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                mBottomButton.setText(getResources().getString(R.string.photo_button));
-            }
+            mBottomButton.setText(getResources().getString(R.string.photo_button));
+        }
+    }
+
+    private void bindLandscapeViews(View view) {
+        mWebsiteIcon = (ImageView) view.findViewById(R.id.websiteIcon);
+        mWebsiteIcon.setOnClickListener(this);
+        mPhoneIcon = (ImageView) view.findViewById(R.id.phoneIcon);
+        mPhoneIcon.setOnClickListener(this);
+        mAddressIcon = (ImageView) view.findViewById(R.id.addressIcon);
+        mAddressIcon.setOnClickListener(this);
+        if (mSource.equals(Constants.SOURCE_SAVED)) {
+            mFAB.setImageResource(R.drawable.ic_camera_alt_white_24dp);
         }
     }
 
