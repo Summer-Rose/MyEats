@@ -35,7 +35,6 @@ import java.util.List;
 public class RestaurantListFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private RestaurantListAdapter mAdapter;
-    public ArrayList<Restaurant> mRestaurants = new ArrayList<>();
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
     private String mRecentAddress;
@@ -107,13 +106,12 @@ public class RestaurantListFragment extends Fragment {
     }
 
     public void getRestaurants(String location) {
-        Log.d("get rest", location);
         YelpService service = new YelpService(this);
         service.getRestaurants(location);
     }
 
     public void setRestaurants(List<Restaurant> restaurants) {
-        mAdapter = new RestaurantListAdapter(getActivity(), (ArrayList) restaurants, mOnRestaurantSelectedListener);
+        mAdapter = new RestaurantListAdapter((ArrayList) restaurants, mOnRestaurantSelectedListener);
         mRecyclerView.setAdapter(mAdapter);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
