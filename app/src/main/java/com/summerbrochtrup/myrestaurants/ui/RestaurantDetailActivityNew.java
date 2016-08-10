@@ -3,7 +3,6 @@ package com.summerbrochtrup.myrestaurants.ui;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.summerbrochtrup.myrestaurants.Constants;
 import com.summerbrochtrup.myrestaurants.R;
@@ -21,7 +20,7 @@ public class RestaurantDetailActivityNew extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_detail_new);
         Restaurant restaurant = Parcels.unwrap(getIntent().getParcelableExtra(Constants.EXTRA_KEY_RESTAURANT));
-        String source = getIntent().getStringExtra(Constants.KEY_SOURCE);
+        String source = getIntent().getStringExtra(Constants.EXTRA_KEY_SOURCE);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         if (source.equals(Constants.SOURCE_FIND)) {
             ft.replace(R.id.fragmentContainer, FindRestaurantDetailFragment.newInstance(restaurant));

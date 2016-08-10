@@ -13,12 +13,8 @@ import com.summerbrochtrup.myrestaurants.models.Restaurant;
 import com.summerbrochtrup.myrestaurants.util.OnRestaurantSelectedListener;
 import org.parceler.Parcels;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class RestaurantListActivity extends AppCompatActivity implements OnRestaurantSelectedListener {
-    private Integer mPosition;
-    private ArrayList<Restaurant> mRestaurants;
+    private Restaurant mRestaurant;
     private String mSource;
 
     @Override
@@ -33,14 +29,12 @@ public class RestaurantListActivity extends AppCompatActivity implements OnResta
 
         if (savedInstanceState != null) {
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                mPosition = savedInstanceState.getInt(Constants.EXTRA_KEY_POSITION);
-                mRestaurants = Parcels.unwrap(savedInstanceState.getParcelable(Constants.EXTRA_KEY_RESTAURANTS));
-                mSource = savedInstanceState.getString(Constants.KEY_SOURCE);
-                if (mPosition != null && mRestaurants != null) {
-                    Intent intent = new Intent(this, RestaurantDetailActivity.class);
-                    intent.putExtra(Constants.EXTRA_KEY_POSITION, mPosition);
-                    intent.putExtra(Constants.EXTRA_KEY_RESTAURANTS, Parcels.wrap(mRestaurants));
-                    intent.putExtra(Constants.KEY_SOURCE, mSource);
+                mRestaurant = Parcels.unwrap(savedInstanceState.getParcelable(Constants.EXTRA_KEY_RESTAURANT));
+                mSource = savedInstanceState.getString(Constants.EXTRA_KEY_SOURCE);
+                if (mRestaurant != null) {
+                    Intent intent = new Intent(this, RestaurantDetailActivityNew.class);
+                    intent.putExtra(Constants.EXTRA_KEY_RESTAURANT, Parcels.wrap(mRestaurant));
+                    intent.putExtra(Constants.EXTRA_KEY_SOURCE, mSource);
                     startActivity(intent);
                 }
             }
@@ -57,18 +51,22 @@ public class RestaurantListActivity extends AppCompatActivity implements OnResta
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (mPosition != null && mRestaurants != null) {
-            outState.putInt(Constants.EXTRA_KEY_POSITION, mPosition);
-            outState.putParcelable(Constants.EXTRA_KEY_RESTAURANTS, Parcels.wrap(mRestaurants));
-            outState.putString(Constants.KEY_SOURCE, mSource);
+        if (mRestaurant != null) {
+            outState.putParcelable(Constants.EXTRA_KEY_RESTAURANT, Parcels.wrap(mRestaurant));
+            outState.putString(Constants.EXTRA_KEY_SOURCE, mSource);
         }
     }
 
     @Override
-    public void onRestaurantSelected(Integer position, ArrayList<Restaurant> restaurants, String source) {
-        mPosition = position;
-        mRestaurants = restaurants;
+    public void onRestaurantSelected(Restaurant restaurant, String source) {
+        mRestaurant = restaurant;
         mSource = source;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        supportFinishAfterTransition();
     }
 }
 
