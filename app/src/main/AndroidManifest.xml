@@ -17,16 +17,27 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.summerbrochtrup.myrestaurants.ui.MainActivity"></activity>
-        <activity android:name=".ui.FindRestaurantListActivity">
+        <activity
+            android:name="com.summerbrochtrup.myrestaurants.ui.MainActivity"
+            android:label=""/>
+
+        <activity
+            android:name=".ui.FindRestaurantListActivity"
+            android:label="">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.summerbrochtrup.myrestaurants.ui.MainActivity" />
         </activity>
-        <activity android:name=".ui.RestaurantDetailActivity"></activity>
-        <activity android:name="com.summerbrochtrup.myrestaurants.ui.SavedRestaurantListActivity" />
-        <activity android:name="com.summerbrochtrup.myrestaurants.ui.CreateAccountActivity" />
-        <activity android:name="com.summerbrochtrup.myrestaurants.ui.LoginActivity">
+        <activity
+            android:name=".ui.RestaurantDetailActivity"
+            android:label=""/>
+        <activity
+            android:name="com.summerbrochtrup.myrestaurants.ui.SavedRestaurantListActivity"
+            android:label=""/>
+        <activity
+            android:name="com.summerbrochtrup.myrestaurants.ui.CreateAccountActivity" />
+        <activity
+            android:name="com.summerbrochtrup.myrestaurants.ui.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
