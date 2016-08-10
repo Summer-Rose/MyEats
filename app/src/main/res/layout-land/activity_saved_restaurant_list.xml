@@ -38,7 +38,7 @@
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:layout_weight="3"
-            tools:layout="@layout/fragment_restaurant_list" />
+            tools:layout="@layout/fragment_find_restaurant_list" />
 
         <View android:background="@color/colorAccent"
             android:layout_width="2dp"

@@ -13,6 +13,6 @@
         android:name="com.summerbrochtrup.myrestaurants.ui.FindRestaurantListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout="@layout/fragment_restaurant_list" />
+        tools:layout="@layout/fragment_find_restaurant_list" />
 
 </LinearLayout>
