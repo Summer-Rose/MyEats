@@ -13,7 +13,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,7 +31,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RestaurantListFragment extends Fragment {
+public class FindRestaurantListFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private RestaurantListAdapter mAdapter;
     private SharedPreferences mSharedPreferences;
@@ -40,7 +39,7 @@ public class RestaurantListFragment extends Fragment {
     private String mRecentAddress;
     private OnRestaurantSelectedListener mOnRestaurantSelectedListener;
 
-    public RestaurantListFragment() {}
+    public FindRestaurantListFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

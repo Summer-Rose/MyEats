@@ -19,7 +19,7 @@ import com.summerbrochtrup.myrestaurants.Constants;
 import com.summerbrochtrup.myrestaurants.R;
 import com.summerbrochtrup.myrestaurants.models.Restaurant;
 import com.summerbrochtrup.myrestaurants.ui.FindRestaurantDetailFragment;
-import com.summerbrochtrup.myrestaurants.ui.RestaurantDetailActivityNew;
+import com.summerbrochtrup.myrestaurants.ui.RestaurantDetailActivity;
 import com.summerbrochtrup.myrestaurants.util.OnRestaurantSelectedListener;
 import com.squareup.picasso.Picasso;
 import com.summerbrochtrup.myrestaurants.util.RestaurantPropertyHelper;
@@ -113,7 +113,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
                 createDetailFragment(itemPosition);
             } else {
                 Log.d("portrait", "going to detail");
-                Intent intent = new Intent(mContext, RestaurantDetailActivityNew.class);
+                Intent intent = new Intent(mContext, RestaurantDetailActivity.class);
                 intent.putExtra(Constants.EXTRA_KEY_RESTAURANT, Parcels.wrap(mRestaurants.get(itemPosition)));
                 intent.putExtra(Constants.EXTRA_KEY_SOURCE, Constants.SOURCE_FIND);
                 ActivityOptionsCompat options = ActivityOptionsCompat.

@@ -13,7 +13,7 @@ import com.summerbrochtrup.myrestaurants.models.Restaurant;
 import com.summerbrochtrup.myrestaurants.util.OnRestaurantSelectedListener;
 import org.parceler.Parcels;
 
-public class RestaurantListActivity extends AppCompatActivity implements OnRestaurantSelectedListener {
+public class FindRestaurantListActivity extends AppCompatActivity implements OnRestaurantSelectedListener {
     private Restaurant mRestaurant;
     private String mSource;
 
@@ -32,7 +32,7 @@ public class RestaurantListActivity extends AppCompatActivity implements OnResta
                 mRestaurant = Parcels.unwrap(savedInstanceState.getParcelable(Constants.EXTRA_KEY_RESTAURANT));
                 mSource = savedInstanceState.getString(Constants.EXTRA_KEY_SOURCE);
                 if (mRestaurant != null) {
-                    Intent intent = new Intent(this, RestaurantDetailActivityNew.class);
+                    Intent intent = new Intent(this, RestaurantDetailActivity.class);
                     intent.putExtra(Constants.EXTRA_KEY_RESTAURANT, Parcels.wrap(mRestaurant));
                     intent.putExtra(Constants.EXTRA_KEY_SOURCE, mSource);
                     startActivity(intent);

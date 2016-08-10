@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ui.RestaurantListActivity">
+    tools:context=".ui.FindRestaurantListActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -35,7 +35,7 @@
 
         <fragment
             android:id="@+id/fragmentItemsList"
-            android:name="com.summerbrochtrup.myrestaurants.ui.RestaurantListFragment"
+            android:name="com.summerbrochtrup.myrestaurants.ui.FindRestaurantListFragment"
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:layout_weight="3"

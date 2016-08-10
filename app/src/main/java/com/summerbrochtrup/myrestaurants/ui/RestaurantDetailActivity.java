@@ -13,7 +13,7 @@ import org.parceler.Parcels;
 /**
  * Created by epicodus_staff on 8/9/16.
  */
-public class RestaurantDetailActivityNew extends AppCompatActivity {
+public class RestaurantDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -5,11 +5,8 @@ import android.widget.Toast;
 import com.summerbrochtrup.myrestaurants.Constants;
 import com.summerbrochtrup.myrestaurants.database.RestaurantDataSource;
 import com.summerbrochtrup.myrestaurants.models.Restaurant;
-import com.summerbrochtrup.myrestaurants.ui.RestaurantListFragment;
+import com.summerbrochtrup.myrestaurants.ui.FindRestaurantListFragment;
 import com.summerbrochtrup.myrestaurants.util.RestaurantPropertyHelper;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -25,9 +22,9 @@ import se.akerfeldt.okhttp.signpost.SigningInterceptor;
  * Created by summerbrochtrup on 8/7/16.
  */
 public class YelpService implements Callback<YelpResponse> {
-    private RestaurantListFragment mFragment;
+    private FindRestaurantListFragment mFragment;
 
-    public YelpService(RestaurantListFragment fragment) {
+    public YelpService(FindRestaurantListFragment fragment) {
         mFragment = fragment;
     }
 

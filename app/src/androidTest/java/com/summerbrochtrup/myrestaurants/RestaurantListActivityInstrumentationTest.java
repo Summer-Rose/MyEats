@@ -2,7 +2,7 @@ package com.summerbrochtrup.myrestaurants;
 
 import android.support.test.rule.ActivityTestRule;
 
-import com.summerbrochtrup.myrestaurants.ui.RestaurantListActivity;
+import com.summerbrochtrup.myrestaurants.ui.FindRestaurantListActivity;
 
 import org.junit.Rule;
 
@@ -15,8 +15,8 @@ import static org.hamcrest.core.IsNot.not;
 public class RestaurantListActivityInstrumentationTest {
 
     @Rule
-    public ActivityTestRule<RestaurantListActivity> activityTestRule =
-            new ActivityTestRule<>(RestaurantListActivity.class);
+    public ActivityTestRule<FindRestaurantListActivity> activityTestRule =
+            new ActivityTestRule<>(FindRestaurantListActivity.class);
 
 
 }

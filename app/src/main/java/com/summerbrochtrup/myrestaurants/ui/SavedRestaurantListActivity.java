@@ -32,7 +32,7 @@ public class SavedRestaurantListActivity extends AppCompatActivity implements On
                 mRestaurant = Parcels.unwrap(savedInstanceState.getParcelable(Constants.EXTRA_KEY_RESTAURANT));
                 mSource = savedInstanceState.getString(Constants.EXTRA_KEY_SOURCE);
                 if (mRestaurant != null) {
-                    Intent intent = new Intent(this, RestaurantDetailActivityNew.class);
+                    Intent intent = new Intent(this, RestaurantDetailActivity.class);
                     intent.putExtra(Constants.EXTRA_KEY_RESTAURANT, Parcels.wrap(mRestaurant));
                     intent.putExtra(Constants.EXTRA_KEY_SOURCE, mSource);
                     startActivity(intent);

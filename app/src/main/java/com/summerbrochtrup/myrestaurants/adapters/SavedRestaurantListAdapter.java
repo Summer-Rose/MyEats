@@ -23,7 +23,7 @@ import com.summerbrochtrup.myrestaurants.Constants;
 import com.summerbrochtrup.myrestaurants.R;
 import com.summerbrochtrup.myrestaurants.database.RestaurantDataSource;
 import com.summerbrochtrup.myrestaurants.models.Restaurant;
-import com.summerbrochtrup.myrestaurants.ui.RestaurantDetailActivityNew;
+import com.summerbrochtrup.myrestaurants.ui.RestaurantDetailActivity;
 import com.summerbrochtrup.myrestaurants.ui.SavedRestaurantDetailFragment;
 import com.summerbrochtrup.myrestaurants.util.ItemTouchHelperAdapter;
 import com.summerbrochtrup.myrestaurants.util.ItemTouchHelperViewHolder;
@@ -83,7 +83,7 @@ public class SavedRestaurantListAdapter extends RecyclerView.Adapter<SavedRestau
                 if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     createDetailFragment(itemPosition);
                 } else {
-                    Intent intent = new Intent(mContext, RestaurantDetailActivityNew.class);
+                    Intent intent = new Intent(mContext, RestaurantDetailActivity.class);
                     intent.putExtra(Constants.EXTRA_KEY_RESTAURANT, Parcels.wrap(mRestaurants.get(itemPosition)));
                     intent.putExtra(Constants.EXTRA_KEY_SOURCE, Constants.SOURCE_SAVED);
                     ActivityOptionsCompat options = ActivityOptionsCompat.

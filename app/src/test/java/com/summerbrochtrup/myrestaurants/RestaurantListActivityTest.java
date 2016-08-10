@@ -3,7 +3,7 @@ package com.summerbrochtrup.myrestaurants;
 import android.os.Build;
 import android.widget.ListView;
 
-import com.summerbrochtrup.myrestaurants.ui.RestaurantListActivity;
+import com.summerbrochtrup.myrestaurants.ui.FindRestaurantListActivity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,19 +19,8 @@ import static junit.framework.Assert.assertNotNull;
 @RunWith(RobolectricGradleTestRunner.class)
 
 public class RestaurantListActivityTest {
-    private RestaurantListActivity activity;
+    private FindRestaurantListActivity activity;
     private ListView mRestaurantListView;
 
-    @Before
-    public void setup() {
-        activity = Robolectric.setupActivity(RestaurantListActivity.class);
-        mRestaurantListView = (ListView) activity.findViewById(R.id.listView);
-    }
-
-    @Test
-    public void restaurantListViewPopulates() {
-        assertNotNull(mRestaurantListView.getAdapter());
-        assertEquals(mRestaurantListView.getAdapter().getCount(), 16);
-    }
 
 }
