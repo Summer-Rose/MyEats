@@ -18,7 +18,7 @@ public class RestaurantDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_restaurant_detail_new);
+        setContentView(R.layout.activity_restaurant_detail);
         Restaurant restaurant = Parcels.unwrap(getIntent().getParcelableExtra(Constants.EXTRA_KEY_RESTAURANT));
         String source = getIntent().getStringExtra(Constants.EXTRA_KEY_SOURCE);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

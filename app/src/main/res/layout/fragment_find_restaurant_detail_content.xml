@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 android:gravity="center"
-                android:text="View on Yelp"
+                android:text="@string/view_on_yelp"
                 android:drawableLeft="@drawable/ic_exit_to_app_white_24dp"
                 android:drawablePadding="4dp"
                 android:textColor="@color/colorTextIcons"

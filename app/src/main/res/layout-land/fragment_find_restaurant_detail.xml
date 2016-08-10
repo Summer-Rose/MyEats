@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.summerbrochtrup.myrestaurants.ui.RestaurantDetailFragment">
+    tools:context="com.summerbrochtrup.myrestaurants.ui.FindRestaurantDetailFragment">
 
     <LinearLayout
         android:orientation="vertical"
@@ -39,8 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@id/restaurantImageView"
                     android:layout_alignTop="@id/restaurantImageView"
-                    android:padding="3dp"
-                    >
+                    android:padding="3dp">
 
                     <ImageView
                         android:id="@+id/websiteIcon"

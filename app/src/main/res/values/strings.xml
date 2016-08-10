@@ -1,6 +1,18 @@
 <resources>
     <string name="app_name">MyRestaurants</string>
 
+    <!-- login/create account strings -->
+    <string name="title_create_account">Create Account</string>
+    <string name="title_login">Login</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_confirm_password">Confirm password</string>
+    <string name="button_sign_up">Sign up</string>
+    <string name="text_view_sign_up">Don't have an account? Sign up here!</string>
+    <string name="button_log_in">Log in</string>
+    <string name="text_view_log_in">Already have an account? Log in here!</string>
+
     <!-- authentication errors -->
     <string name="no_email_error_message">Please enter your email</string>
     <string name="no_password_error_message">Password cannot be blank</string>
@@ -28,6 +40,9 @@
     <string name="map_format">geo:%1$s,%2$s?q=(%3$s)</string>
     <string name="saved_toast">Saved</string>
     <string name="photo_button">Take a photo</string>
+    <string name="view_on_yelp">View on Yelp</string>
+    <string name="button_save_restaurant">Save Restaurant</string>
+    <string name="button_delete_restaurant">Remove Restaurant</string>
 
     <!-- transition names -->
     <string name="transition_name_rest_img">restaurantImage</string>
