@@ -18,8 +18,8 @@ import android.widget.TextView;
 import com.summerbrochtrup.myrestaurants.Constants;
 import com.summerbrochtrup.myrestaurants.R;
 import com.summerbrochtrup.myrestaurants.models.Restaurant;
-import com.summerbrochtrup.myrestaurants.ui.RestaurantDetailActivity;
-import com.summerbrochtrup.myrestaurants.ui.RestaurantDetailFragment;
+import com.summerbrochtrup.myrestaurants.ui.FindRestaurantDetailFragment;
+import com.summerbrochtrup.myrestaurants.ui.RestaurantDetailActivityNew;
 import com.summerbrochtrup.myrestaurants.util.OnRestaurantSelectedListener;
 import com.squareup.picasso.Picasso;
 import com.summerbrochtrup.myrestaurants.util.RestaurantPropertyHelper;
@@ -27,7 +27,6 @@ import com.summerbrochtrup.myrestaurants.util.RestaurantPropertyHelper;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAdapter.RestaurantViewHolder> {
     private static final int MAX_WIDTH = 200;
@@ -100,7 +99,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         }
 
         private void createDetailFragment(int position) {
-            RestaurantDetailFragment detailFragment = RestaurantDetailFragment.newInstance(mRestaurants, position, Constants.SOURCE_FIND);
+            FindRestaurantDetailFragment detailFragment = FindRestaurantDetailFragment.newInstance(mRestaurants.get(position));
             FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.restaurantDetailContainer, detailFragment);
             ft.commit();
@@ -109,14 +108,14 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         @Override
         public void onClick(View v) {
             int itemPosition = getLayoutPosition();
-            mRestaurantSelectedListener.onRestaurantSelected(itemPosition, mRestaurants, Constants.SOURCE_FIND);
+            mRestaurantSelectedListener.onRestaurantSelected(mRestaurants.get(itemPosition), Constants.SOURCE_FIND);
             if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
                 createDetailFragment(itemPosition);
             } else {
-                Intent intent = new Intent(mContext, RestaurantDetailActivity.class);
-                intent.putExtra(Constants.EXTRA_KEY_POSITION, itemPosition);
-                intent.putExtra(Constants.EXTRA_KEY_RESTAURANTS, Parcels.wrap(mRestaurants));
-                intent.putExtra(Constants.KEY_SOURCE, Constants.SOURCE_FIND);
+                Log.d("portrait", "going to detail");
+                Intent intent = new Intent(mContext, RestaurantDetailActivityNew.class);
+                intent.putExtra(Constants.EXTRA_KEY_RESTAURANT, Parcels.wrap(mRestaurants.get(itemPosition)));
+                intent.putExtra(Constants.EXTRA_KEY_SOURCE, Constants.SOURCE_FIND);
                 ActivityOptionsCompat options = ActivityOptionsCompat.
                         makeSceneTransitionAnimation((Activity) mContext, mRestaurantImageView,
                                 mContext.getResources().getString(R.string.transition_name_rest_img));
