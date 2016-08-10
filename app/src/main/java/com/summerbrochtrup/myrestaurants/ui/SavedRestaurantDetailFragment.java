@@ -151,9 +151,9 @@ public class SavedRestaurantDetailFragment extends Fragment implements View.OnCl
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == getActivity().RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get(Constants.BITMAP_EXTRA);
-            mImageView.setImageBitmap(imageBitmap);
+//            Bundle extras = data.getExtras();
+//            Bitmap imageBitmap = (Bitmap) extras.get(Constants.BITMAP_EXTRA);
+//            mImageView.setImageBitmap(imageBitmap);
             //encodeBitmapAndSaveToFirebase(imageBitmap);
         }
     }
