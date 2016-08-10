@@ -1,7 +1,6 @@
 package com.summerbrochtrup.myrestaurants.ui;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -10,10 +9,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
 import com.summerbrochtrup.myrestaurants.Constants;
 import com.summerbrochtrup.myrestaurants.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,8 +33,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mFindRestaurantsButton = (Button) findViewById(R.id.findRestaurantsButton);
         mSavedRestaurantsButton = (Button) findViewById(R.id.savedRestaurantsButton);
         TextView toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
-        getSupportActionBar().setTitle("");
-        toolbarTitle.setText("Welcome, " + FirebaseAuth.getInstance().getCurrentUser().getDisplayName() + "!");
+        getSupportActionBar().setTitle(Constants.EMPTY_STRING);
+        toolbarTitle.setText(String.format(getResources().getString(R.string.welcome_toolbar_title),
+                FirebaseAuth.getInstance().getCurrentUser().getDisplayName()));
         mFindRestaurantsButton.setOnClickListener(this);
         mSavedRestaurantsButton.setOnClickListener(this);
     }

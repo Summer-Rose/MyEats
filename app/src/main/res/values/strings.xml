@@ -1,35 +1,35 @@
 <resources>
     <string name="app_name">MyRestaurants</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <!-- authentication errors -->
     <string name="no_email_error_message">Please enter your email</string>
     <string name="no_password_error_message">Password cannot be blank</string>
     <string name="no_name_error_message">Please enter your name</string>
     <string name="not_valid_email_error_message">Please enter a valid email address</string>
     <string name="passwords_dont_match_error_message">Passwords do not match</string>
     <string name="not_valid_password_error_message">Please create a password containing at least 6 characters</string>
-
     <string name="authentication_failed">Authentication failed.</string>
 
+    <!-- authentication progress messages -->
     <string name="progress_dialog_loading">Loading...</string>
     <string name="progress_dialog_authenticating">Authenticating with Firebase...</string>
 
+    <!-- main activity strings -->
     <string name="welcome_toolbar_title">Welcome, %s!</string>
+    <string name="find_restaruants_button">Find restaurants</string>
+    <string name="saved_restaurants_button">Saved restaurants</string>
+    <string name="view_gallery_button">View gallery</string>
 
+    <!-- restaurant list item strings -->
     <string name="rating_format">%s/5</string>
 
+    <!-- restaurant detail strings -->
     <string name="tel_format">tel:%s</string>
-
     <string name="map_format">geo:%1$s,%2$s?q=(%3$s)</string>
-
     <string name="saved_toast">Saved</string>
-    <string name="title_activity_maps">Map</string>
-
     <string name="photo_button">Take a photo</string>
 
+    <!-- transition names -->
     <string name="transition_name_rest_img">restaurantImage</string>
-
 
 </resources>
