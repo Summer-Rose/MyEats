@@ -23,7 +23,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.summerbrochtrup.myrestaurants.ui.MainActivity" />
         </activity>
-        <activity android:name="com.summerbrochtrup.myrestaurants.ui.RestaurantDetailActivity" />
+        <activity android:name=".ui.RestaurantDetailActivityNew"></activity>
         <activity android:name="com.summerbrochtrup.myrestaurants.ui.SavedRestaurantListActivity" />
         <activity android:name="com.summerbrochtrup.myrestaurants.ui.CreateAccountActivity" />
         <activity android:name="com.summerbrochtrup.myrestaurants.ui.LoginActivity">
