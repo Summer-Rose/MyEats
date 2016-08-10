@@ -17,20 +17,22 @@
         android:background="@color/colorTextIcons"
         android:padding="20dp">
 
-        <TextView
+        <com.summerbrochtrup.myrestaurants.fonts.OstrichBoldTextView
             android:id="@+id/restaurantNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Restaurant Name"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="20sp"
+            android:textSize="30sp"
+            android:layout_marginBottom="5dp"
             android:textStyle="bold" />
 
-        <TextView
+        <com.summerbrochtrup.myrestaurants.fonts.OstrichBlackTextView
             android:id="@+id/categoryTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Brunch, American"
+            android:textSize="20sp"
             android:textColor="@color/colorSecondaryText"
             android:textStyle="italic" />
 
@@ -59,7 +61,7 @@
                 style="@android:style/Widget.Material.Light.RatingBar.Indicator"/>
 
 
-            <TextView
+            <com.summerbrochtrup.myrestaurants.fonts.OstrichBlackTextView
                 android:id="@+id/websiteTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -69,10 +71,10 @@
                 android:drawableLeft="@drawable/ic_exit_to_app_white_24dp"
                 android:drawablePadding="4dp"
                 android:textColor="@color/colorTextIcons"
-                android:textSize="18sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <com.summerbrochtrup.myrestaurants.fonts.OstrichBlackTextView
                 android:id="@+id/phoneTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -82,10 +84,10 @@
                 android:drawableLeft="@drawable/ic_local_phone_white_24dp"
                 android:drawablePadding="4dp"
                 android:textColor="@color/colorTextIcons"
-                android:textSize="18sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <com.summerbrochtrup.myrestaurants.fonts.OstrichBlackTextView
                 android:id="@+id/addressTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -95,7 +97,7 @@
                 android:drawableLeft="@drawable/ic_map_white_24dp"
                 android:drawablePadding="4dp"
                 android:textColor="@color/colorTextIcons"
-                android:textSize="18sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
             <fragment
@@ -109,7 +111,7 @@
 
     </ScrollView>
 
-    <Button
+    <com.summerbrochtrup.myrestaurants.fonts.OstrichRegButton
         android:id="@+id/bottomButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -117,6 +119,7 @@
         android:text="@string/button_delete_restaurant"
         android:background="@color/colorAccent"
         android:textColor="@color/colorTextIcons"
-        android:textSize="15sp" />
+        android:padding="10dp"
+        android:textSize="30sp" />
 
 </RelativeLayout>

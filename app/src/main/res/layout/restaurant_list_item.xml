@@ -25,20 +25,22 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:background="#ffffff"
-            android:padding="10dp">
+            android:padding="14dp">
 
-            <TextView
+            <com.summerbrochtrup.myrestaurants.fonts.OstrichBlackTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/restaurantNameTextView"
-                android:textSize="20dp"
+                android:textSize="22sp"
+                android:layout_marginBottom="5dp"
                 android:textStyle="bold"
                 android:text="Restaurant Name"
                 android:textColor="@color/colorPrimary"/>
 
-            <TextView
+            <com.summerbrochtrup.myrestaurants.fonts.OstrichRegTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="20sp"
                 android:text="One Cuisine Type"
                 android:id="@+id/categoryTextView"
                 android:textStyle="italic"/>
@@ -47,10 +49,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
+                <com.summerbrochtrup.myrestaurants.fonts.OstrichBoldTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Rating"
+                    android:textSize="20sp"
                     android:id="@+id/ratingTextView"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"

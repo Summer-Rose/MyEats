@@ -27,6 +27,7 @@ public class SavedRestaurantListActivity extends AppCompatActivity implements On
         setContentView(R.layout.activity_saved_restaurant_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         if (savedInstanceState != null) {
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                 mRestaurant = Parcels.unwrap(savedInstanceState.getParcelable(Constants.EXTRA_KEY_RESTAURANT));

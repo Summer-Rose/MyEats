@@ -66,7 +66,6 @@ public class SavedRestaurantDetailFragment extends Fragment implements View.OnCl
     private FloatingActionButton mFAB;
     private SupportMapFragment mMap;
     private Restaurant mRestaurant;
-    private String mSource;
 
     public static SavedRestaurantDetailFragment newInstance(Restaurant restaurant) {
         SavedRestaurantDetailFragment restaurantDetailFragment = new SavedRestaurantDetailFragment();
@@ -188,12 +187,14 @@ public class SavedRestaurantDetailFragment extends Fragment implements View.OnCl
         mPhoneTextView.setText(mRestaurant.getPhone());
         mPhoneTextView.setOnClickListener(this);
         mAddressTextView = (TextView) view.findViewById(R.id.addressTextView);
+        Log.d("address", mRestaurant.getAddress() + "");
         mAddressTextView.setText(android.text.TextUtils.join(", ", mRestaurant.getAddress()));
         mAddressTextView.setOnClickListener(this);
         mBottomButton = (Button) view.findViewById(R.id.bottomButton);
         mBottomButton.setOnClickListener(this);
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.main_toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         setHasOptionsMenu(true);
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) view.findViewById(R.id.main_collapsing);
         collapsingToolbarLayout.setTitle(getResources().getString(R.string.app_name));

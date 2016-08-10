@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mFindRestaurantsButton = (Button) findViewById(R.id.findRestaurantsButton);
         mSavedRestaurantsButton = (Button) findViewById(R.id.savedRestaurantsButton);
         TextView toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
-        getSupportActionBar().setTitle(Constants.EMPTY_STRING);
         toolbarTitle.setText(String.format(getResources().getString(R.string.welcome_toolbar_title),
                 FirebaseAuth.getInstance().getCurrentUser().getDisplayName()));
         mFindRestaurantsButton.setOnClickListener(this);

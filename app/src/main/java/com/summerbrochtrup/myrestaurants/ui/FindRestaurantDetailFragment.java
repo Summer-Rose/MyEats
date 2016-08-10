@@ -2,6 +2,7 @@ package com.summerbrochtrup.myrestaurants.ui;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -168,6 +169,7 @@ public class FindRestaurantDetailFragment extends Fragment implements View.OnCli
         mBottomButton.setOnClickListener(this);
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.main_toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         setHasOptionsMenu(true);
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) view.findViewById(R.id.main_collapsing);
         collapsingToolbarLayout.setTitle(getResources().getString(R.string.app_name));
