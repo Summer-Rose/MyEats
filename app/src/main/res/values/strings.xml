@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyRestaurants</string>
+    <string name="app_name">MyEats</string>
 
     <!-- login/create account strings -->
     <string name="title_create_account">Create Account</string>
