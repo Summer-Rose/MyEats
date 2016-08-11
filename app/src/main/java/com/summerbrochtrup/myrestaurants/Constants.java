@@ -10,6 +10,7 @@ public class Constants {
     public static final String YELP_GET_SEARCH = "/v2/search";
     public static final String YELP_QUERY_TERM = "term";
     public static final String YELP_QUERY_LOCATION = "location";
+    public static final String YELP_QUERY_LAT_LNG = "ll";
     public static final String YELP_TERM_FOOD = "food";
     public static final String SERIALIZED_NAME_ADDRESS = "display_address";
     public static final String SERIALIZED_NAME_PHONE = "display_phone";
