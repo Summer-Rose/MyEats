@@ -2,18 +2,13 @@ package com.summerbrochtrup.myrestaurants.ui;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -36,14 +31,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 import com.summerbrochtrup.myrestaurants.Constants;
 import com.summerbrochtrup.myrestaurants.R;
-import com.summerbrochtrup.myrestaurants.database.RestaurantDataSource;
 import com.summerbrochtrup.myrestaurants.models.Restaurant;
 import com.summerbrochtrup.myrestaurants.util.RestaurantPropertyHelper;
 
 import org.parceler.Parcels;
-
-import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Created by epicodus_staff on 8/9/16.
@@ -148,16 +139,6 @@ public class SavedRestaurantDetailFragment extends Fragment implements View.OnCl
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == getActivity().RESULT_OK) {
-//            Bundle extras = data.getExtras();
-//            Bitmap imageBitmap = (Bitmap) extras.get(Constants.BITMAP_EXTRA);
-//            mImageView.setImageBitmap(imageBitmap);
-            //encodeBitmapAndSaveToFirebase(imageBitmap);
-        }
-    }
-
-    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_photo, menu);
@@ -187,7 +168,6 @@ public class SavedRestaurantDetailFragment extends Fragment implements View.OnCl
         mPhoneTextView.setText(mRestaurant.getPhone());
         mPhoneTextView.setOnClickListener(this);
         mAddressTextView = (TextView) view.findViewById(R.id.addressTextView);
-        Log.d("address", mRestaurant.getAddress() + "");
         mAddressTextView.setText(android.text.TextUtils.join(", ", mRestaurant.getAddress()));
         mAddressTextView.setOnClickListener(this);
         mBottomButton = (Button) view.findViewById(R.id.bottomButton);
@@ -196,14 +176,6 @@ public class SavedRestaurantDetailFragment extends Fragment implements View.OnCl
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         setHasOptionsMenu(true);
-        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) view.findViewById(R.id.main_collapsing);
-        collapsingToolbarLayout.setTitle(getResources().getString(R.string.app_name));
-        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
-        collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.colorPrimary));
-
-        //change
-//        mFAB.setImageResource(R.drawable.ic_camera_alt_white_24dp);
-//        mBottomButton.setText(getResources().getString(R.string.photo_button));
     }
 
     private void bindLandscapeViews(View view) {
@@ -213,9 +185,6 @@ public class SavedRestaurantDetailFragment extends Fragment implements View.OnCl
         mPhoneIcon.setOnClickListener(this);
         mAddressIcon = (ImageView) view.findViewById(R.id.addressIcon);
         mAddressIcon.setOnClickListener(this);
-//        if (mSource.equals(Constants.SOURCE_SAVED)) {
-//            mFAB.setImageResource(R.drawable.ic_camera_alt_white_24dp);
-//        }
     }
 
     public void onLaunchCamera() {
@@ -225,23 +194,6 @@ public class SavedRestaurantDetailFragment extends Fragment implements View.OnCl
         }
     }
 
-//    public void encodeBitmapAndSaveToFirebase(Bitmap bitmap) {
-//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-//        String imageEncoded = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
-//        DatabaseReference ref = FirebaseDatabase.getInstance()
-//                .getReference(Constants.FIREBASE_CHILD_RESTAURANTS)
-//                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-//                //.child(mRestaurant.getPushId())
-//                .child(Constants.FIREBASE_CHILD_IMAGEURL);
-//        ref.setValue(imageEncoded);
-//    }
-
-    public static Bitmap decodeFromFirebaseBase64(String image) throws IOException {
-        byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
-    }
-
     private void logout() {
         FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(getActivity(), LoginActivity.class);
@@ -249,5 +201,4 @@ public class SavedRestaurantDetailFragment extends Fragment implements View.OnCl
         startActivity(intent);
         getActivity().finish();
     }
-
 }
