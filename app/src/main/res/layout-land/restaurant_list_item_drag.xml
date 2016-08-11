@@ -40,20 +40,23 @@
             android:background="#ffffff"
             android:padding="10dp">
 
-            <TextView
+            <com.summerbrochtrup.myrestaurants.fonts.OstrichBlackTextView
                 android:id="@+id/restaurantNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14dp"
+                android:textSize="17dp"
                 android:text="Restaurant Name"
                 android:textColor="@color/colorPrimary"/>
 
-            <TextView
+            <com.summerbrochtrup.myrestaurants.fonts.OstrichRegTextView
                 android:id="@+id/categoryTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="17dp"
+                android:layout_marginTop="10dp"
                 android:text="One Cuisine Type"
                 android:textStyle="italic"/>
+
 
             <TextView
                 android:id="@+id/ratingTextView"

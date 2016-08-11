@@ -94,21 +94,23 @@
             android:gravity="center"
             android:padding="10dp">
 
-            <TextView
+            <com.summerbrochtrup.myrestaurants.fonts.OstrichBoldTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Restaurant Name"
                 android:id="@+id/restaurantNameTextView"
-                android:textSize="20sp"
+                android:textSize="26sp"
                 android:layout_gravity="left"
                 android:textColor="@color/colorTextIcons"
                 android:textStyle="bold" />
 
-            <TextView
+            <com.summerbrochtrup.myrestaurants.fonts.OstrichRegTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Brunch, American"
                 android:layout_gravity="left"
+                android:paddingTop="10dp"
+                android:textSize="24sp"
                 android:id="@+id/categoryTextView"
                 android:textColor="@color/colorPrimaryLight"
                 android:textStyle="italic" />
