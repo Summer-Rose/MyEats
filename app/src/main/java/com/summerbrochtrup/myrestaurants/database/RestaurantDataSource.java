@@ -45,7 +45,9 @@ public class RestaurantDataSource {
         values.put(SQLiteHelper.COLUMN_URL, restaurant.getUrl());
         values.put(SQLiteHelper.COLUMN_RATING, restaurant.getRating());
         values.put(SQLiteHelper.COLUMN_IMAGE_URL, restaurant.getImageUrl());
-        values.put(SQLiteHelper.COLUMN_ADDRESS, TextUtils.join(",", restaurant.getAddress()));
+        Log.d("address saving", restaurant.getAddress() + "");
+        values.put(SQLiteHelper.COLUMN_ADDRESS, TextUtils.join(", ", restaurant.getAddress()));
+        Log.d("address formatted s", TextUtils.join(", ", restaurant.getAddress()));
         values.put(SQLiteHelper.COLUMN_LATITUDE, restaurant.getLatitude());
         values.put(SQLiteHelper.COLUMN_LONGITUDE, restaurant.getLongitude());
         values.put(SQLiteHelper.COLUMN_CATEGORIES, TextUtils.join(",", restaurant.getCategoryList()));
@@ -89,7 +91,7 @@ public class RestaurantDataSource {
                         getStringFromColumnName(cursor, SQLiteHelper.COLUMN_URL),
                         Double.parseDouble(getStringFromColumnName(cursor, SQLiteHelper.COLUMN_RATING)),
                         getStringFromColumnName(cursor, SQLiteHelper.COLUMN_IMAGE_URL),
-                        Arrays.asList(TextUtils.split(",", getStringFromColumnName(cursor, SQLiteHelper.COLUMN_ADDRESS))),
+                        Arrays.asList(getStringFromColumnName(cursor, SQLiteHelper.COLUMN_ADDRESS).split(",")),
                         Double.parseDouble(getStringFromColumnName(cursor, SQLiteHelper.COLUMN_LATITUDE)),
                         Double.parseDouble(getStringFromColumnName(cursor, SQLiteHelper.COLUMN_LONGITUDE)),
                         Arrays.asList(getStringFromColumnName(cursor, SQLiteHelper.COLUMN_CATEGORIES).split(",")),
