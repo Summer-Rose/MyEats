@@ -17,7 +17,7 @@
         android:background="@color/colorTextIcons"
         android:padding="20dp">
 
-        <com.summerbrochtrup.myrestaurants.fonts.OstrichBoldTextView
+        <com.summerbrochtrup.myeats.fonts.OstrichBoldTextView
             android:id="@+id/restaurantNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
             android:layout_marginBottom="5dp"
             android:textStyle="bold" />
 
-        <com.summerbrochtrup.myrestaurants.fonts.OstrichBlackTextView
+        <com.summerbrochtrup.myeats.fonts.OstrichBlackTextView
             android:id="@+id/categoryTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
                 style="@android:style/Widget.Material.Light.RatingBar.Indicator"/>
 
 
-            <com.summerbrochtrup.myrestaurants.fonts.OstrichBlackTextView
+            <com.summerbrochtrup.myeats.fonts.OstrichBlackTextView
                 android:id="@+id/websiteTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
-            <com.summerbrochtrup.myrestaurants.fonts.OstrichBlackTextView
+            <com.summerbrochtrup.myeats.fonts.OstrichBlackTextView
                 android:id="@+id/phoneTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
-            <com.summerbrochtrup.myrestaurants.fonts.OstrichBlackTextView
+            <com.summerbrochtrup.myeats.fonts.OstrichBlackTextView
                 android:id="@+id/addressTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -105,13 +105,13 @@
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                tools:context="com.summerbrochtrup.myrestaurants.ui.MapsActivity" />
+                tools:context="com.summerbrochtrup.myeats.ui.MapsActivity" />
 
         </LinearLayout>
 
     </ScrollView>
 
-    <com.summerbrochtrup.myrestaurants.fonts.OstrichRegButton
+    <com.summerbrochtrup.myeats.fonts.OstrichRegButton
         android:id="@+id/bottomButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

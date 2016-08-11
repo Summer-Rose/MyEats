@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.summerbrochtrup.myrestaurants.ui.FindRestaurantDetailFragment">
+    tools:context="com.summerbrochtrup.myeats.ui.FindRestaurantDetailFragment">
 
     <LinearLayout
         android:orientation="vertical"
@@ -81,7 +81,7 @@
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.summerbrochtrup.myrestaurants.ui.RestaurantDetailActivity" />
+                tools:context="com.summerbrochtrup.myeats.ui.RestaurantDetailActivity" />
 
         </LinearLayout>
 
@@ -94,7 +94,7 @@
             android:gravity="center"
             android:padding="10dp">
 
-            <com.summerbrochtrup.myrestaurants.fonts.OstrichBoldTextView
+            <com.summerbrochtrup.myeats.fonts.OstrichBoldTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Restaurant Name"
@@ -104,7 +104,7 @@
                 android:textColor="@color/colorTextIcons"
                 android:textStyle="bold" />
 
-            <com.summerbrochtrup.myrestaurants.fonts.OstrichRegTextView
+            <com.summerbrochtrup.myeats.fonts.OstrichRegTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Brunch, American"

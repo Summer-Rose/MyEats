@@ -35,7 +35,7 @@
 
         <fragment
             android:id="@+id/fragmentItemsList"
-            android:name="com.summerbrochtrup.myrestaurants.ui.FindRestaurantListFragment"
+            android:name="com.summerbrochtrup.myeats.ui.FindRestaurantListFragment"
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:layout_weight="3"

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:id="@+id/main"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.summerbrochtrup.myrestaurants.ui.MainActivity">
+    tools:context="com.summerbrochtrup.myeats.ui.MainActivity">
 
     <ImageView
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
         android:padding="40dp"
         android:orientation="vertical">
 
-        <com.summerbrochtrup.myrestaurants.fonts.OstrichBoldTextView
+        <com.summerbrochtrup.myeats.fonts.OstrichBoldTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
@@ -34,7 +34,7 @@
             android:textColor="@color/colorTextIcons"
             android:layout_weight="6"/>
 
-        <com.summerbrochtrup.myrestaurants.fonts.OstrichRegButton
+        <com.summerbrochtrup.myeats.fonts.OstrichRegButton
             android:id="@+id/findRestaurantsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
             android:alpha="0.8"
             android:textStyle="bold" />
 
-        <com.summerbrochtrup.myrestaurants.fonts.OstrichRegButton
+        <com.summerbrochtrup.myeats.fonts.OstrichRegButton
             android:id="@+id/savedRestaurantsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
             android:alpha="0.8"
             android:textStyle="bold" />
 
-        <com.summerbrochtrup.myrestaurants.fonts.OstrichRegButton
+        <com.summerbrochtrup.myeats.fonts.OstrichRegButton
             android:id="@+id/viewGalleryButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

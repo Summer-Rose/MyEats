@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.summerbrochtrup.myrestaurants.ui.CreateAccountActivity"
+    tools:context="com.summerbrochtrup.myeats.ui.CreateAccountActivity"
     android:background="@color/colorPrimary">
 
     <LinearLayout
@@ -16,7 +16,7 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/linearLayout">
 
-        <com.summerbrochtrup.myrestaurants.fonts.OstrichRegEditText
+        <EditText
             android:id="@+id/nameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
             android:textColorHint="@color/colorDivider"
             android:textSize="25sp" />
 
-        <com.summerbrochtrup.myrestaurants.fonts.OstrichRegEditText
+        <EditText
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
             android:textColorHint="@color/colorDivider"
             android:textSize="25sp" />
 
-        <com.summerbrochtrup.myrestaurants.fonts.OstrichRegEditText
+        <EditText
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
             android:textColorHint="@color/colorDivider"
             android:textSize="25sp" />
 
-        <com.summerbrochtrup.myrestaurants.fonts.OstrichRegEditText
+        <EditText
             android:id="@+id/confirmPasswordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
             android:textColorHint="@color/colorDivider"
             android:textSize="25sp" />
 
-        <com.summerbrochtrup.myrestaurants.fonts.OstrichRegButton
+        <com.summerbrochtrup.myeats.fonts.OstrichRegButton
             android:id="@+id/createUserButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
             android:layout_marginTop="15dp"
             android:textColor="@color/colorTextIcons" />
 
-        <com.summerbrochtrup.myrestaurants.fonts.OstrichBlackTextView
+        <com.summerbrochtrup.myeats.fonts.OstrichBlackTextView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_marginTop="30dp"
@@ -93,7 +93,7 @@
 
     </LinearLayout>
 
-    <com.summerbrochtrup.myrestaurants.fonts.OstrichBoldTextView
+    <com.summerbrochtrup.myeats.fonts.OstrichBoldTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_create_account"

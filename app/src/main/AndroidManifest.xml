@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.summerbrochtrup.myrestaurants">
-
-    <uses-permission android:name="android.permission.INTERNET" />
+    package="com.summerbrochtrup.myeats">
 
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-        android:name="com.summerbrochtrup.myrestaurants.MyRestaurantsApplication"
+        android:name="com.summerbrochtrup.myeats.MyRestaurantsApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.summerbrochtrup.myrestaurants.ui.MainActivity"
+            android:name="com.summerbrochtrup.myeats.ui.MainActivity"
             android:screenOrientation="portrait"
             android:label=""/>
 
         <activity
-            android:name=".ui.FindRestaurantListActivity"
+            android:name="com.summerbrochtrup.myeats.ui.FindRestaurantListActivity"
             android:label="">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.summerbrochtrup.myrestaurants.ui.MainActivity" />
-        </activity>
+                android:value="com.summerbrochtrup.myeats.ui.MainActivity" />
+    </activity>
         <activity
-            android:name=".ui.RestaurantDetailActivity"
+            android:name="com.summerbrochtrup.myeats.ui.RestaurantDetailActivity"
             android:screenOrientation="portrait"
             android:label=""/>
         <activity
-            android:name="com.summerbrochtrup.myrestaurants.ui.SavedRestaurantListActivity"
+            android:name="com.summerbrochtrup.myeats.ui.SavedRestaurantListActivity"
             android:label=""/>
         <activity
-            android:name="com.summerbrochtrup.myrestaurants.ui.CreateAccountActivity"
+            android:name="com.summerbrochtrup.myeats.ui.CreateAccountActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.summerbrochtrup.myrestaurants.ui.LoginActivity"
+            android:name="com.summerbrochtrup.myeats.ui.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -10,7 +10,7 @@
 
     <fragment
         android:id="@+id/fragmentRestaurantList"
-        android:name="com.summerbrochtrup.myrestaurants.ui.SavedRestaurantListFragment"
+        android:name="com.summerbrochtrup.myeats.ui.SavedRestaurantListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout="@layout/fragment_saved_restaurant_list" />

@@ -1,35 +1,35 @@
 {
   "project_info": {
-    "project_number": "803753287161",
-    "firebase_url": "https://valid-lodge-139218.firebaseio.com",
-    "project_id": "valid-lodge-139218",
-    "storage_bucket": "valid-lodge-139218.appspot.com"
+    "project_number": "913173836922",
+    "firebase_url": "https://myrestaurants-7b689.firebaseio.com",
+    "project_id": "myrestaurants-7b689",
+    "storage_bucket": "myrestaurants-7b689.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:803753287161:android:b043d6061a26467b",
+        "mobilesdk_app_id": "1:913173836922:android:305e8ca051603379",
         "android_client_info": {
-          "package_name": "com.summerbrochtrup.myrestaurants"
+          "package_name": "com.summerbrochtrup.myeats"
         }
       },
       "oauth_client": [
         {
-          "client_id": "803753287161-3gvd4pk99n97io4mp4quo67gnv9un5dl.apps.googleusercontent.com",
+          "client_id": "913173836922-ra4ikktu0jsbgak6mb1ovi4uhjjh0n11.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.summerbrochtrup.myrestaurants",
-            "certificate_hash": "B893C39F580B1D7384ACD37E072165884AC1BE41"
+            "package_name": "com.summerbrochtrup.myeats",
+            "certificate_hash": "FA626F2ACD1A65513704D4AFB2EF5B9776D5D048"
           }
         },
         {
-          "client_id": "803753287161-iuioh30njninc7lvp36im61t9ci7qtsd.apps.googleusercontent.com",
+          "client_id": "913173836922-20fgvqkj9gtmmrgef8tbsk71rm9isstb.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAVZs170-wgXEvsuVbV5mrB0n60QbPXs7c"
+          "current_key": "AIzaSyB6HemTM4M7xyOWpAIUE-AgisZhe0Cs_Qs"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "803753287161-iuioh30njninc7lvp36im61t9ci7qtsd.apps.googleusercontent.com",
+              "client_id": "913173836922-20fgvqkj9gtmmrgef8tbsk71rm9isstb.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

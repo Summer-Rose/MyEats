@@ -21,7 +21,7 @@
             android:theme="@style/ToolbarTheme"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            <com.summerbrochtrup.myrestaurants.fonts.OstrichRegTextView
+            <com.summerbrochtrup.myeats.fonts.OstrichRegTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/title_saved_restaurants"

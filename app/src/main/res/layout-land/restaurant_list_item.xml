@@ -25,7 +25,7 @@
             android:background="#ffffff"
             android:padding="10dp">
 
-            <com.summerbrochtrup.myrestaurants.fonts.OstrichBlackTextView
+            <com.summerbrochtrup.myeats.fonts.OstrichBlackTextView
                 android:id="@+id/restaurantNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
                 android:text="Restaurant Name"
                 android:textColor="@color/colorPrimary"/>
 
-            <com.summerbrochtrup.myrestaurants.fonts.OstrichRegTextView
+            <com.summerbrochtrup.myeats.fonts.OstrichRegTextView
                 android:id="@+id/categoryTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
