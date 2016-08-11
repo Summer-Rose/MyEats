@@ -1,12 +1,19 @@
 package com.summerbrochtrup.myrestaurants.ui;
 
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +26,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.summerbrochtrup.myrestaurants.Constants;
 import com.summerbrochtrup.myrestaurants.R;
 import com.summerbrochtrup.myrestaurants.adapters.RestaurantListAdapter;
@@ -31,22 +42,33 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FindRestaurantListFragment extends Fragment {
+public class FindRestaurantListFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private RecyclerView mRecyclerView;
     private RestaurantListAdapter mAdapter;
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
     private String mRecentAddress;
     private OnRestaurantSelectedListener mOnRestaurantSelectedListener;
+    private GoogleApiClient mGoogleApiClient;
+    private static final int PERMISSION_ACCESS_COARSE_LOCATION = 11;
+    private TextView mToolbarTitle;
 
     public FindRestaurantListFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[] { Manifest.permission.ACCESS_COARSE_LOCATION },
+                    PERMISSION_ACCESS_COARSE_LOCATION);
+        }
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity(), this, this).addApi(LocationServices.API).build();
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        mRecentAddress = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION_KEY, null);
         mEditor = mSharedPreferences.edit();
         setHasOptionsMenu(true);
+
     }
 
     @Override
@@ -64,12 +86,9 @@ public class FindRestaurantListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_find_restaurant_list, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        mToolbarTitle = (TextView) view.findViewById(R.id.toolbar_title);
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        mRecentAddress = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION_KEY, null);
-        if (mRecentAddress != null) {
-            getRestaurants(mRecentAddress);
-        }
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         return view;
     }
 
@@ -85,11 +104,13 @@ public class FindRestaurantListFragment extends Fragment {
             public boolean onQueryTextSubmit(String query) {
                 addToSharedPreferences(query);
                 getRestaurants(query);
+                mToolbarTitle.setVisibility(View.VISIBLE);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                mToolbarTitle.setVisibility(View.GONE);
                 return false;
             }
         });
@@ -107,6 +128,11 @@ public class FindRestaurantListFragment extends Fragment {
     public void getRestaurants(String location) {
         YelpService service = new YelpService(this);
         service.getRestaurants(location);
+    }
+
+    public void getRestaurantsLatLng(double lat, double lng) {
+        YelpService service = new YelpService(this);
+        service.getRestaurantsLatLng(Double.toString(lat), Double.toString(lng));
     }
 
     public void setRestaurants(List<Restaurant> restaurants) {
@@ -127,5 +153,41 @@ public class FindRestaurantListFragment extends Fragment {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         getActivity().finish();
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            if (lastLocation != null) {
+                double lat = lastLocation.getLatitude(), lon = lastLocation.getLongitude();
+                getRestaurantsLatLng(lat, lon);
+            } else {
+                getRestaurants(mRecentAddress);
+            }
+        } else {
+            getRestaurants(mRecentAddress);
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {}
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {}
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.connect();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        mGoogleApiClient.disconnect();
+        super.onStop();
     }
 }
