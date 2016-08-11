@@ -2,10 +2,8 @@ package com.summerbrochtrup.myrestaurants.ui;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -169,12 +168,7 @@ public class FindRestaurantDetailFragment extends Fragment implements View.OnCli
         mBottomButton.setOnClickListener(this);
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.main_toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         setHasOptionsMenu(true);
-        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) view.findViewById(R.id.main_collapsing);
-        collapsingToolbarLayout.setTitle(getResources().getString(R.string.app_name));
-        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
-        collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.colorPrimary));
     }
 
     private void bindLandscapeViews(View view) {
@@ -189,6 +183,9 @@ public class FindRestaurantDetailFragment extends Fragment implements View.OnCli
     private void saveRestaurant() {
         RestaurantDataSource dataSource = new RestaurantDataSource(getActivity());
         dataSource.create(mRestaurant);
+        Toast.makeText(getActivity(),
+                getResources().getString(R.string.saved_toast),
+                Toast.LENGTH_SHORT);
     }
 
     private void logout() {
