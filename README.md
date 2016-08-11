@@ -17,16 +17,11 @@
 
 MyEats is a simple restaurant searching app. Users can view nearby restaurants or search for restaurants by specific location. Users can then save restaurants they intend to visit. Saved restaurants can be sorted via drag and drop to indicate the priority in which they would like to eat at them.
 
-<<<<<<< HEAD
-=======
-LOGIN AND OUT
-
->>>>>>> 71acf55ffd82725796169447e8e8c12ef2739aa6
 ### To Do
 
 ---
 
-* Currently ,MyEats is optimized for the Google Nexus 6P. Alternative layouts should be added to accommodate varying screen sizes.
+* Currently, MyEats is optimized for the Google Nexus 6P. Alternative layouts should be added to accommodate varying screen sizes.
 * Enable users to take photos of the foods they eat at a specific restaurant and save them to a gallery.
 * Enable users to share photos with other users of the app using Firebase.
 
@@ -34,11 +29,7 @@ LOGIN AND OUT
 
 ---
 
-<<<<<<< HEAD
 MyEats utilizes SQLite to store restaurants. It also implements Retrofit2 to search for restaurants via the Yelp API. The UI is created using CoordinatorLayouts, CollapsingToolbars, shared element activity transitions, and alternative layouts for landscape orientation. MyEats also utilizes Google's FusedLocationAPI to locate the user and Google Maps to display the location of the restaurant to the user. User authorization is implemented with Firebase with the intention of one day enabling users to share content with all users or select users.
-=======
-MyEats utilizes SQLite to store restaurants. It also implements Retrofit2 to search for restaurants via the Yelp API. The UI is created using CoordinatorLayouts, CollapsingToolbars, shared element activity transitions, and alternative layouts for landscape orientation. MyEats also utilizes Google's FusedLocationAPI to locate the user and Google Maps to display the location of the restaurant to the user. User authorization is implemented with Firebase with the intention of one day enabling users to share content with all users or select users. 
->>>>>>> 71acf55ffd82725796169447e8e8c12ef2739aa6
 
 ### Known Issues
 
