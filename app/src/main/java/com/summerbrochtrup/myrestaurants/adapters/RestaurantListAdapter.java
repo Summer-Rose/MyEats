@@ -112,7 +112,6 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
             if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
                 createDetailFragment(itemPosition);
             } else {
-                Log.d("portrait", "going to detail");
                 Intent intent = new Intent(mContext, RestaurantDetailActivity.class);
                 intent.putExtra(Constants.EXTRA_KEY_RESTAURANT, Parcels.wrap(mRestaurants.get(itemPosition)));
                 intent.putExtra(Constants.EXTRA_KEY_SOURCE, Constants.SOURCE_FIND);

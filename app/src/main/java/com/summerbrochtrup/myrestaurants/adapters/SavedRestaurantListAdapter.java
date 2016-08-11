@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -83,6 +84,7 @@ public class SavedRestaurantListAdapter extends RecyclerView.Adapter<SavedRestau
                 if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     createDetailFragment(itemPosition);
                 } else {
+                    Log.d("address in adapter", mRestaurants.get(itemPosition).getAddress() + "");
                     Intent intent = new Intent(mContext, RestaurantDetailActivity.class);
                     intent.putExtra(Constants.EXTRA_KEY_RESTAURANT, Parcels.wrap(mRestaurants.get(itemPosition)));
                     intent.putExtra(Constants.EXTRA_KEY_SOURCE, Constants.SOURCE_SAVED);
