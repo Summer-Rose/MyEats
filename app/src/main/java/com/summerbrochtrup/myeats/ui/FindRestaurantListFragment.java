@@ -25,8 +25,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -51,7 +49,6 @@ public class FindRestaurantListFragment extends Fragment implements GoogleApiCli
     private OnRestaurantSelectedListener mOnRestaurantSelectedListener;
     private GoogleApiClient mGoogleApiClient;
     private static final int PERMISSION_ACCESS_COARSE_LOCATION = 11;
-    private TextView mToolbarTitle;
 
     public FindRestaurantListFragment() {}
 
@@ -82,7 +79,6 @@ public class FindRestaurantListFragment extends Fragment implements GoogleApiCli
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_find_restaurant_list, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        mToolbarTitle = (TextView) view.findViewById(R.id.toolbar_title);
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         return view;
@@ -100,13 +96,11 @@ public class FindRestaurantListFragment extends Fragment implements GoogleApiCli
             public boolean onQueryTextSubmit(String query) {
                 addToSharedPreferences(query);
                 getRestaurants(query);
-                mToolbarTitle.setVisibility(View.VISIBLE);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                //mToolbarTitle.setVisibility(View.GONE);
                 return false;
             }
         });
@@ -159,12 +153,18 @@ public class FindRestaurantListFragment extends Fragment implements GoogleApiCli
                     PERMISSION_ACCESS_COARSE_LOCATION);
             return;
         }
+        Location location = getCurrentLocation();
+        if (location != null) {
+            getRestaurantsLatLng(location.getLatitude(), location.getLongitude());
+        } else {
+            getRestaurants(mRecentAddress);
+        }
     }
 
     @SuppressWarnings({"MissingPermission"})
-    private void getLocation() {
+    private Location getCurrentLocation() {
         Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        getRestaurantsLatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
+        return lastLocation;
 
     }
 
@@ -174,9 +174,14 @@ public class FindRestaurantListFragment extends Fragment implements GoogleApiCli
         switch (requestCode) {
             case PERMISSION_ACCESS_COARSE_LOCATION:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    getLocation();
+                    Location location = getCurrentLocation();
+                    if (location != null) {
+                        getRestaurantsLatLng(location.getLatitude(), location.getLongitude());
+                    } else {
+                        getRestaurants(mRecentAddress);
+                    }
                 } else {
-                    Toast.makeText(getActivity(), "Need your location!", Toast.LENGTH_SHORT).show();
+                    getRestaurants(mRecentAddress);
                 }
                 break;
         }
