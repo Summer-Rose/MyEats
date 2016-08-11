@@ -14,4 +14,8 @@ public interface YelpEndpoints {
     @GET(Constants.YELP_GET_SEARCH)
     Call<YelpResponse> loadRestaurants(@Query(Constants.YELP_QUERY_TERM) String term,
                                        @Query(Constants.YELP_QUERY_LOCATION) String location);
+
+    @GET(Constants.YELP_GET_SEARCH)
+    Call<YelpResponse> loadRestaurantsLatLng(@Query(Constants.YELP_QUERY_TERM) String term,
+                                             @Query(Constants.YELP_QUERY_LAT_LNG) String latAndLng);
 }

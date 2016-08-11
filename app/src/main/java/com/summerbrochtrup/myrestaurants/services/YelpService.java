@@ -50,7 +50,30 @@ public class YelpService implements Callback<YelpResponse> {
 
         Call<YelpResponse> call = api.loadRestaurants(Constants.YELP_TERM_FOOD, location);
         call.enqueue(this);
+    }
 
+    public void getRestaurantsLatLng(String lat, String lng) {
+        OkHttpOAuthConsumer consumer = new OkHttpOAuthConsumer(Constants.YELP_CONSUMER_KEY, Constants.YELP_CONSUMER_SECRET);
+        consumer.setTokenWithSecret(Constants.YELP_TOKEN, Constants.YELP_TOKEN_SECRET);
+
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(new SigningInterceptor(consumer))
+                .addInterceptor(interceptor)
+                .build();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.YELP_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+
+        final YelpEndpoints api = retrofit.create(YelpEndpoints.class);
+
+        Call<YelpResponse> call = api.loadRestaurantsLatLng(Constants.YELP_TERM_FOOD, lat + "," + lng);
+        call.enqueue(this);
     }
 
     @Override
