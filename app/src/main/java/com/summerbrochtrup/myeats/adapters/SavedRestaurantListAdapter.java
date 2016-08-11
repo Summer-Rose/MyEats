@@ -84,7 +84,6 @@ public class SavedRestaurantListAdapter extends RecyclerView.Adapter<SavedRestau
                 if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     createDetailFragment(itemPosition);
                 } else {
-                    Log.d("address in adapter", mRestaurants.get(itemPosition).getAddress() + "");
                     Intent intent = new Intent(mContext, RestaurantDetailActivity.class);
                     intent.putExtra(Constants.EXTRA_KEY_RESTAURANT, Parcels.wrap(mRestaurants.get(itemPosition)));
                     intent.putExtra(Constants.EXTRA_KEY_SOURCE, Constants.SOURCE_SAVED);

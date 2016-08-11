@@ -10,9 +10,6 @@ import com.summerbrochtrup.myeats.models.Restaurant;
 
 import org.parceler.Parcels;
 
-/**
- * Created by epicodus_staff on 8/9/16.
- */
 public class RestaurantDetailActivity extends AppCompatActivity {
 
     @Override
@@ -30,30 +27,6 @@ public class RestaurantDetailActivity extends AppCompatActivity {
             ft.commit();
         }
     }
-
-
-
-//    private void initializeView() {
-//
-//    }
-////
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_timer_activity, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.action_logout:
-//                return true;
-//            default:
-//                return true;
-//        }
-//    }
-
-
 
     @Override
     public void onBackPressed() {

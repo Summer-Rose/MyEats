@@ -78,10 +78,5 @@ public class SavedRestaurantListFragment extends Fragment implements OnStartDrag
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mAdapter);
         mItemTouchHelper = new ItemTouchHelper(callback);
         mItemTouchHelper.attachToRecyclerView(mRecyclerView);
-
-        //ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
-//        for (Restaurant restaurant : restaurants) {
-//            Log.d("saved restaurant", restaurant.getName() + " " + restaurant.getDatabaseId());
-//        }
     }
 }

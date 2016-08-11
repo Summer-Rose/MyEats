@@ -36,9 +36,6 @@ import com.summerbrochtrup.myeats.util.RestaurantPropertyHelper;
 
 import org.parceler.Parcels;
 
-/**
- * Created by epicodus_staff on 8/9/16.
- */
 public class SavedRestaurantDetailFragment extends Fragment implements View.OnClickListener, OnMapReadyCallback {
     private static final int MAX_WIDTH = 400;
     private static final int MAX_HEIGHT = 300;
