@@ -19,6 +19,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.summerbrochtrup.myrestaurants.ui.MainActivity"
+            android:screenOrientation="portrait"
             android:label=""/>
 
         <activity
@@ -30,14 +31,17 @@
         </activity>
         <activity
             android:name=".ui.RestaurantDetailActivity"
+            android:screenOrientation="portrait"
             android:label=""/>
         <activity
             android:name="com.summerbrochtrup.myrestaurants.ui.SavedRestaurantListActivity"
             android:label=""/>
         <activity
-            android:name="com.summerbrochtrup.myrestaurants.ui.CreateAccountActivity" />
+            android:name="com.summerbrochtrup.myrestaurants.ui.CreateAccountActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.summerbrochtrup.myrestaurants.ui.LoginActivity">
+            android:name="com.summerbrochtrup.myrestaurants.ui.LoginActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
