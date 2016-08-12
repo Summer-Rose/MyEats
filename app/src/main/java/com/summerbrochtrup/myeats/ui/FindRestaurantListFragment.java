@@ -33,7 +33,7 @@ import com.summerbrochtrup.myeats.Constants;
 import com.summerbrochtrup.myeats.R;
 import com.summerbrochtrup.myeats.adapters.RestaurantListAdapter;
 import com.summerbrochtrup.myeats.models.Restaurant;
-import com.summerbrochtrup.myeats.services.YelpService;
+import com.summerbrochtrup.myeats.api.YelpService;
 import com.summerbrochtrup.myeats.util.OnRestaurantSelectedListener;
 import com.google.firebase.auth.FirebaseAuth;
 

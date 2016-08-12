@@ -1,4 +1,4 @@
-package com.summerbrochtrup.myeats.services;
+package com.summerbrochtrup.myeats.api;
 
 import com.summerbrochtrup.myeats.Constants;
 

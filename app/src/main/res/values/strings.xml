@@ -28,23 +28,23 @@
 
     <!-- main activity strings -->
     <string name="welcome_toolbar_title">Welcome, %s!</string>
-    <string name="find_restaruants_button">Find restaurants</string>
-    <string name="saved_restaurants_button">Saved restaurants</string>
-    <string name="view_gallery_button">View gallery</string>
+    <string name="find_restaruants_button">Find Eats</string>
+    <string name="saved_restaurants_button">Saved Eats</string>
+    <string name="view_gallery_button">Eats gallery</string>
 
     <!-- restaurant list item strings -->
-    <string name="title_find_restaurants">Find restaurants</string>
-    <string name="title_saved_restaurants">Saved restaurants</string>
+    <string name="title_find_restaurants">Find Eats</string>
+    <string name="title_saved_restaurants">Saved Eats</string>
     <string name="rating_format">%s/5</string>
 
     <!-- restaurant detail strings -->
     <string name="tel_format">tel:%s</string>
     <string name="map_format">geo:%1$s,%2$s?q=(%3$s)</string>
-    <string name="saved_toast">Saved</string>
+    <string name="saved_snackar">%s was added to your eats.</string>
     <string name="photo_button">Take a photo</string>
     <string name="view_on_yelp">View on Yelp</string>
-    <string name="button_save_restaurant">Save Restaurant</string>
-    <string name="button_delete_restaurant">Remove Restaurant</string>
+    <string name="button_save_restaurant">Save Eat</string>
+    <string name="button_delete_restaurant">Remove Eat</string>
 
     <!-- transition names -->
     <string name="transition_name_rest_img">restaurantImage</string>
