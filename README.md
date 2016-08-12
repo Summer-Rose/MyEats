@@ -29,13 +29,13 @@ MyEats is a simple restaurant searching app. Users can view nearby restaurants o
 
 ---
 
-MyEats utilizes SQLite to store restaurants. It also implements Retrofit2 to search for restaurants via the Yelp API. The UI is created using CoordinatorLayouts, CollapsingToolbars, shared element activity transitions, and alternative layouts for landscape orientation. MyEats also utilizes Google's FusedLocationAPI to locate the user and Google Maps to display the location of the restaurant to the user. User authorization is implemented with Firebase with the intention of one day enabling users to share content with all users or select users.
+MyEats utilizes SQLite to store restaurants. It also implements Retrofit2 to search for restaurants via the Yelp API. The UI is created using CoordinatorLayouts, CollapsingToolbars, shared element activity transitions, and alternative layouts for landscape orientation. MyEats also utilizes Google's FusedLocationAPI to locate the user and Google Maps to display the location of the restaurant to the user. User authorization is implemented with Firebase with the intention of one day enabling users to share content (photos) with all users or select users.
 
 ### Known Issues
 
 ---
 
-The 'LastKnownLocation' feature does not display nearby restaurants the first time when a user is prompted to permit MyEats to use their current location.
+**Resolved** _The 'LastKnownLocation' feature does not display nearby restaurants the first time when a user is prompted to permit MyEats to use their current location_.
 
 ### License
 
