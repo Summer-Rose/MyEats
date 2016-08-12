@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,7 +20,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -54,6 +55,7 @@ public class FindRestaurantDetailFragment extends Fragment implements View.OnCli
     private FloatingActionButton mFAB;
     private SupportMapFragment mMap;
     private Restaurant mRestaurant;
+    private CoordinatorLayout mCoordinatorLayout;
 
     public static FindRestaurantDetailFragment newInstance(Restaurant restaurant) {
         FindRestaurantDetailFragment restaurantDetailFragment = new FindRestaurantDetailFragment();
@@ -169,6 +171,7 @@ public class FindRestaurantDetailFragment extends Fragment implements View.OnCli
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.main_toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         setHasOptionsMenu(true);
+        mCoordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.mainLayout);
     }
 
     private void bindLandscapeViews(View view) {
@@ -183,9 +186,10 @@ public class FindRestaurantDetailFragment extends Fragment implements View.OnCli
     private void saveRestaurant() {
         RestaurantDataSource dataSource = new RestaurantDataSource(getActivity());
         dataSource.create(mRestaurant);
-        Toast.makeText(getActivity(),
-                getResources().getString(R.string.saved_toast),
-                Toast.LENGTH_SHORT);
+        Snackbar snackbar = Snackbar.make(mCoordinatorLayout,
+                String.format(getResources().getString(R.string.saved_snackar), mRestaurant.getName()),
+                Snackbar.LENGTH_LONG);
+        snackbar.show();
     }
 
     private void logout() {
