@@ -23,11 +23,13 @@ import com.summerbrochtrup.myeats.util.SimpleItemTouchHelperCallback;
 
 import java.util.ArrayList;
 
-public class SavedRestaurantListFragment extends Fragment implements OnStartDragListener {
+public class SavedRestaurantListFragment extends Fragment implements OnStartDragListener, SavedView {
     private RecyclerView mRecyclerView;
     private ItemTouchHelper mItemTouchHelper;
     private SavedRestaurantListAdapter mAdapter;
     private OnRestaurantSelectedListener mOnRestaurantSelectedListener;
+
+    private SavedPresenter mPresenter;
 
     public SavedRestaurantListFragment() {}
 
@@ -46,6 +48,8 @@ public class SavedRestaurantListFragment extends Fragment implements OnStartDrag
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_saved_restaurant_list, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        mPresenter = new SavedPresenter(this);
+        //mPresenter.getRestaurants();
         getRestaurants();
         return view;
     }

@@ -11,7 +11,6 @@ import android.view.MenuItem;
 
 import com.summerbrochtrup.myeats.Constants;
 import com.summerbrochtrup.myeats.R;
-import com.google.firebase.auth.FirebaseAuth;
 import com.summerbrochtrup.myeats.models.Restaurant;
 import com.summerbrochtrup.myeats.ui.LoginActivity;
 import com.summerbrochtrup.myeats.ui.RestaurantDetailActivity;
@@ -19,14 +18,16 @@ import com.summerbrochtrup.myeats.util.OnRestaurantSelectedListener;
 
 import org.parceler.Parcels;
 
-public class SavedRestaurantListActivity extends AppCompatActivity implements OnRestaurantSelectedListener {
+public class SavedRestaurantListActivity extends AppCompatActivity implements OnRestaurantSelectedListener, SavedView {
     private Restaurant mRestaurant;
     private String mSource;
+    private SavedPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_restaurant_list);
+        mPresenter = new SavedPresenter(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -57,18 +58,10 @@ public class SavedRestaurantListActivity extends AppCompatActivity implements On
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_logout) {
-            logout();
+            mPresenter.onLogoutSelected();
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void logout() {
-        FirebaseAuth.getInstance().signOut();
-        Intent intent = new Intent(SavedRestaurantListActivity.this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-        finish();
     }
 
     @Override
@@ -84,5 +77,13 @@ public class SavedRestaurantListActivity extends AppCompatActivity implements On
     public void onRestaurantSelected(Restaurant restaurant, String source) {
         mRestaurant = restaurant;
         mSource = source;
+    }
+
+    @Override
+    public void launchLoginActivity() {
+        Intent intent = new Intent(SavedRestaurantListActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }
