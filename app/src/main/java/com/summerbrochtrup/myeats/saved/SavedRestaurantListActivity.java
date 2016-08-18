@@ -1,4 +1,4 @@
-package com.summerbrochtrup.myeats.ui;
+package com.summerbrochtrup.myeats.saved;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -13,6 +13,8 @@ import com.summerbrochtrup.myeats.Constants;
 import com.summerbrochtrup.myeats.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.summerbrochtrup.myeats.models.Restaurant;
+import com.summerbrochtrup.myeats.ui.LoginActivity;
+import com.summerbrochtrup.myeats.ui.RestaurantDetailActivity;
 import com.summerbrochtrup.myeats.util.OnRestaurantSelectedListener;
 
 import org.parceler.Parcels;

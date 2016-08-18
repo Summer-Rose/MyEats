@@ -1,4 +1,4 @@
-package com.summerbrochtrup.myeats.ui;
+package com.summerbrochtrup.myeats.saved;
 
 
 import android.content.Context;

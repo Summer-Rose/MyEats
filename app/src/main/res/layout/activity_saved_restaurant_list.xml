@@ -6,11 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ui.SavedRestaurantListActivity">
+    tools:context=".saved.SavedRestaurantListActivity">
 
     <fragment
         android:id="@+id/fragmentRestaurantList"
-        android:name="com.summerbrochtrup.myeats.ui.SavedRestaurantListFragment"
+        android:name="com.summerbrochtrup.myeats.saved.SavedRestaurantListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout="@layout/fragment_saved_restaurant_list" />

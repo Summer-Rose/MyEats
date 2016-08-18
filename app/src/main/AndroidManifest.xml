@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.summerbrochtrup.myeats.ui.MainActivity"
+            android:name=".main.MainActivity"
             android:screenOrientation="portrait"
             android:label=""/>
 
@@ -27,14 +27,14 @@
             android:label="">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.summerbrochtrup.myeats.ui.MainActivity" />
+                android:value=".main.MainActivity" />
     </activity>
         <activity
             android:name="com.summerbrochtrup.myeats.ui.RestaurantDetailActivity"
             android:screenOrientation="portrait"
             android:label=""/>
         <activity
-            android:name="com.summerbrochtrup.myeats.ui.SavedRestaurantListActivity"
+            android:name=".saved.SavedRestaurantListActivity"
             android:label=""/>
         <activity
             android:name="com.summerbrochtrup.myeats.ui.CreateAccountActivity"

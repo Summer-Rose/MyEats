@@ -20,6 +20,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.summerbrochtrup.myeats.main.MainActivity;
 
 
 public class CreateAccountActivity extends AppCompatActivity implements View.OnClickListener {

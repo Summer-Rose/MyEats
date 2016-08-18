@@ -2,7 +2,7 @@ package com.summerbrochtrup.myeats;
 
 import android.support.test.rule.ActivityTestRule;
 
-import com.summerbrochtrup.myeats.ui.MainActivity;
+import com.summerbrochtrup.myeats.main.MainActivity;
 
 import org.junit.Rule;
 
