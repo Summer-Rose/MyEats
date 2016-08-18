@@ -5,6 +5,7 @@ import com.google.firebase.auth.FirebaseAuth;
 /**
  * Created by summerbrochtrup on 8/17/16.
  */
+
 public class SavedPresenter {
     private SavedView mView;
 

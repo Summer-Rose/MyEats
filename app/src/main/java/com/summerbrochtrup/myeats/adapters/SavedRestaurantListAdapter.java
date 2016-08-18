@@ -24,6 +24,7 @@ import com.summerbrochtrup.myeats.Constants;
 import com.summerbrochtrup.myeats.R;
 import com.summerbrochtrup.myeats.database.RestaurantDataSource;
 import com.summerbrochtrup.myeats.models.Restaurant;
+import com.summerbrochtrup.myeats.saved.SavedFragPresenter;
 import com.summerbrochtrup.myeats.ui.RestaurantDetailActivity;
 import com.summerbrochtrup.myeats.ui.SavedRestaurantDetailFragment;
 import com.summerbrochtrup.myeats.util.ItemTouchHelperAdapter;
@@ -47,24 +48,21 @@ public class SavedRestaurantListAdapter extends RecyclerView.Adapter<SavedRestau
     private Context mContext;
     private OnStartDragListener mOnStartDragListener;
     private RestaurantDataSource mDataSource;
-    private OnRestaurantSelectedListener mOnRestaurantSelectedListener;
 
-    public SavedRestaurantListAdapter(Context context, ArrayList<Restaurant> restaurants, OnStartDragListener onStartDragListener, OnRestaurantSelectedListener restaurantSelectedListener) {
+    private SavedFragPresenter mPresenter;
+
+    public SavedRestaurantListAdapter(Context context, OnStartDragListener onStartDragListener, SavedFragPresenter presenter) {
         mContext = context;
-        mRestaurants = restaurants;
         mOnStartDragListener = onStartDragListener;
-        mOnRestaurantSelectedListener = restaurantSelectedListener;
         mDataSource = new RestaurantDataSource(context);
+        mRestaurants = new ArrayList<>();
+        mPresenter = presenter;
     }
 
     @Override
     public SavedRestaurantListAdapter.RestaurantViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.restaurant_list_item_drag, parent, false);
         final RestaurantViewHolder viewHolder = new RestaurantViewHolder(view, mRestaurants);
-        final int orientation = viewHolder.itemView.getResources().getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            createDetailFragment(0);
-        }
         viewHolder.mRestaurantImageView.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
@@ -80,29 +78,18 @@ public class SavedRestaurantListAdapter extends RecyclerView.Adapter<SavedRestau
             @Override
             public void onClick(View v) {
                 int itemPosition = viewHolder.getAdapterPosition();
-                mOnRestaurantSelectedListener.onRestaurantSelected(mRestaurants.get(itemPosition), Constants.SOURCE_SAVED);
-                if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    createDetailFragment(itemPosition);
-                } else {
-                    Intent intent = new Intent(mContext, RestaurantDetailActivity.class);
-                    intent.putExtra(Constants.EXTRA_KEY_RESTAURANT, Parcels.wrap(mRestaurants.get(itemPosition)));
-                    intent.putExtra(Constants.EXTRA_KEY_SOURCE, Constants.SOURCE_SAVED);
-                    ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation((Activity) mContext, viewHolder.mRestaurantImageView,
-                                mContext.getResources().getString(R.string.transition_name_rest_img));
-                    mContext.startActivity(intent, options.toBundle());
-                }
+                Intent intent = new Intent(mContext, RestaurantDetailActivity.class);
+                intent.putExtra(Constants.EXTRA_KEY_RESTAURANT, Parcels.wrap(mRestaurants.get(itemPosition)));
+                intent.putExtra(Constants.EXTRA_KEY_SOURCE, Constants.SOURCE_SAVED);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                    makeSceneTransitionAnimation((Activity) mContext, viewHolder.mRestaurantImageView,
+                            mContext.getResources().getString(R.string.transition_name_rest_img));
+                mContext.startActivity(intent, options.toBundle());
             }
         });
         return viewHolder;
     }
 
-    private void createDetailFragment(int position) {
-        SavedRestaurantDetailFragment detailFragment = SavedRestaurantDetailFragment.newInstance(mRestaurants.get(position));
-        FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.restaurantDetailContainer, detailFragment);
-        ft.commit();
-    }
 
     @Override
     public void onBindViewHolder(SavedRestaurantListAdapter.RestaurantViewHolder holder, int position) {
@@ -134,6 +121,11 @@ public class SavedRestaurantListAdapter extends RecyclerView.Adapter<SavedRestau
             mDataSource = new RestaurantDataSource(mContext);
             mDataSource.updateSortOrder(restaurant);
         }
+    }
+
+    public void addRestaurants(ArrayList<Restaurant> restaurants) {
+        mRestaurants = restaurants;
+        notifyDataSetChanged();
     }
 
     public class RestaurantViewHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {
