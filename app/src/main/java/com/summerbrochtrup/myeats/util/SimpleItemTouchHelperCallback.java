@@ -3,6 +3,7 @@ package com.summerbrochtrup.myeats.util;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
+//listens for gesture callbacks
 public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
     private final ItemTouchHelperAdapter mAdapter;
 
@@ -27,6 +28,7 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
         return makeMovementFlags(dragFlags, swipeFlags);
     }
 
+    //triggers callback in adapter when a drag event begins
     @Override
     public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder source,
                           RecyclerView.ViewHolder target) {
@@ -37,6 +39,7 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
         return true;
     }
 
+    //triggers callback in adapter when item is dismissed
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int i) {
         mAdapter.onItemDismiss(viewHolder.getAdapterPosition());

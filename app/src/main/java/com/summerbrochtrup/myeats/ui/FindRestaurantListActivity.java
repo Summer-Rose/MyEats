@@ -25,6 +25,7 @@ public class FindRestaurantListActivity extends AppCompatActivity implements OnR
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
+
         }
 
         if (savedInstanceState != null) {

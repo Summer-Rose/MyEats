@@ -34,7 +34,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             + COLUMN_LATITUDE + " TEXT, "
             + COLUMN_LONGITUDE + " TEXT, "
             + COLUMN_CATEGORIES + " TEXT, "
-            + COLUMN_YELP_ID + " TEXT UNIQUE, "
+            + COLUMN_YELP_ID + " TEXT UNIQUE, " //ensures only unique restaurants are added
             + COLUMN_SORT_ORDER + " INTEGER)";
 
 

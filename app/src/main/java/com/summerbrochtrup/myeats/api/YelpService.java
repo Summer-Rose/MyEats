@@ -70,6 +70,7 @@ public class YelpService implements Callback<YelpResponse> {
                 .client(client)
                 .build();
 
+        //generates an implementation of the yelp endpoints interface
         final YelpEndpoints api = retrofit.create(YelpEndpoints.class);
 
         Call<YelpResponse> call = api.loadRestaurantsLatLng(Constants.YELP_TERM_FOOD, lat + "," + lng);
@@ -81,6 +82,8 @@ public class YelpService implements Callback<YelpResponse> {
         if (response.isSuccessful()) {
             YelpResponse apiResponse = response.body();
             for (Restaurant restaurant : apiResponse.getBusinesses()) {
+                //JSON response structure includes nested objects. Must be flattened to save to DB.
+                //grab address, categories, and coordinates, and set the restaurant fields
                 restaurant.setAddress(restaurant.getLocation().getDisplayAddress());
                 restaurant.setCategoryList(RestaurantPropertyHelper.getCategories(restaurant.getCategories()));
                 double lat = restaurant.getLocation().getCoordinate().getLatitude();
@@ -88,6 +91,7 @@ public class YelpService implements Callback<YelpResponse> {
                 restaurant.setLatitude(lat);
                 restaurant.setLongitude(lng);
                 RestaurantDataSource dataSource = new RestaurantDataSource(mFragment.getActivity());
+                //set restaurant sort number to number of restaurants in DB to ensure it will appear last if saved
                 restaurant.setSortOrder(dataSource.getNumOfRestaurants());
             }
             mFragment.setRestaurants(apiResponse.getBusinesses());

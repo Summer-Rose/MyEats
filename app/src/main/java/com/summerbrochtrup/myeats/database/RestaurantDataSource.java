@@ -44,6 +44,8 @@ public class RestaurantDataSource {
         values.put(SQLiteHelper.COLUMN_URL, restaurant.getUrl());
         values.put(SQLiteHelper.COLUMN_RATING, restaurant.getRating());
         values.put(SQLiteHelper.COLUMN_IMAGE_URL, restaurant.getImageUrl());
+        //List and ArrayList are not valid sqlite datatypes
+        //Convert address and categories to string separated by comma
         values.put(SQLiteHelper.COLUMN_ADDRESS, TextUtils.join(", ", restaurant.getAddress()));
         values.put(SQLiteHelper.COLUMN_LATITUDE, restaurant.getLatitude());
         values.put(SQLiteHelper.COLUMN_LONGITUDE, restaurant.getLongitude());
@@ -88,6 +90,7 @@ public class RestaurantDataSource {
                         getStringFromColumnName(cursor, SQLiteHelper.COLUMN_URL),
                         Double.parseDouble(getStringFromColumnName(cursor, SQLiteHelper.COLUMN_RATING)),
                         getStringFromColumnName(cursor, SQLiteHelper.COLUMN_IMAGE_URL),
+                        //Split address and category strings at their comma separator to convert back to arrays
                         Arrays.asList(getStringFromColumnName(cursor, SQLiteHelper.COLUMN_ADDRESS).split(",")),
                         Double.parseDouble(getStringFromColumnName(cursor, SQLiteHelper.COLUMN_LATITUDE)),
                         Double.parseDouble(getStringFromColumnName(cursor, SQLiteHelper.COLUMN_LONGITUDE)),
@@ -113,10 +116,10 @@ public class RestaurantDataSource {
     public void updateSortOrder(Restaurant restaurant) {
         SQLiteDatabase database = open();
         database.beginTransaction();
-        ContentValues updateTimerValues = new ContentValues();
-        updateTimerValues.put(SQLiteHelper.COLUMN_SORT_ORDER, restaurant.getSortOrder());
+        ContentValues newOrder = new ContentValues();
+        newOrder.put(SQLiteHelper.COLUMN_SORT_ORDER, restaurant.getSortOrder());
         database.update(SQLiteHelper.RESTAURANTS_TABLE,
-                updateTimerValues,
+                newOrder,
                 String.format("%s=%d", BaseColumns._ID, restaurant.getDatabaseId()),
                 null);
         database.setTransactionSuccessful();
