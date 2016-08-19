@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.summerbrochtrup.myeats.R;
 import com.summerbrochtrup.myeats.adapters.SavedRestaurantListAdapter;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 
 public class SavedRestaurantListFragment extends Fragment implements OnStartDragListener {
     private RecyclerView mRecyclerView;
+    private TextView mEmptyTextView;
     private ItemTouchHelper mItemTouchHelper;
     private SavedRestaurantListAdapter mAdapter;
     private OnRestaurantSelectedListener mOnRestaurantSelectedListener;
@@ -46,6 +48,7 @@ public class SavedRestaurantListFragment extends Fragment implements OnStartDrag
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_saved_restaurant_list, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        mEmptyTextView = (TextView) view.findViewById(R.id.emptyTextView);
         getRestaurants();
         return view;
     }
@@ -64,19 +67,26 @@ public class SavedRestaurantListFragment extends Fragment implements OnStartDrag
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mAdapter.setSortOrder();
+        if (mAdapter != null) {
+            mAdapter.setSortOrder();
+        }
     }
 
     private void getRestaurants() {
         RestaurantDataSource dataSource = new RestaurantDataSource(getActivity());
         ArrayList<Restaurant> restaurants = dataSource.readRestaurants();
-        mAdapter = new SavedRestaurantListAdapter(getActivity(), restaurants, this, mOnRestaurantSelectedListener);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setAdapter(mAdapter);
+        if (restaurants.size() == 0) {
+            mEmptyTextView.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.GONE);
+        } else {
+            mAdapter = new SavedRestaurantListAdapter(getActivity(), restaurants, this, mOnRestaurantSelectedListener);
+            mRecyclerView.setHasFixedSize(true);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            mRecyclerView.setAdapter(mAdapter);
 
-        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mAdapter);
-        mItemTouchHelper = new ItemTouchHelper(callback);
-        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
+            ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mAdapter);
+            mItemTouchHelper = new ItemTouchHelper(callback);
+            mItemTouchHelper.attachToRecyclerView(mRecyclerView);
+        }
     }
 }

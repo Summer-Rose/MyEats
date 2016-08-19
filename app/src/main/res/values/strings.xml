@@ -36,6 +36,7 @@
     <string name="title_find_restaurants">Find Eats</string>
     <string name="title_saved_restaurants">Saved Eats</string>
     <string name="rating_format">%s/5</string>
+    <string name="empty_restaurants">You haven\'t saved any eats yet."</string>
 
     <!-- restaurant detail strings -->
     <string name="tel_format">tel:%s</string>

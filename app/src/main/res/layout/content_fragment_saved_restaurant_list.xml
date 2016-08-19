@@ -17,4 +17,14 @@
         android:layout_below="@+id/toolbar"
         android:layout_alignParentLeft="true"/>
 
+    <com.summerbrochtrup.myeats.fonts.OstrichBlackTextView
+        android:id="@+id/emptyTextView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:padding="20dp"
+        android:textSize="25sp"
+        android:text="@string/empty_restaurants"
+        android:gravity="center"/>
+
 </LinearLayout>
