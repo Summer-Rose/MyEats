@@ -25,6 +25,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -42,6 +43,7 @@ import java.util.List;
 
 public class FindRestaurantListFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private RecyclerView mRecyclerView;
+    private TextView mToolbarTitle;
     private RestaurantListAdapter mAdapter;
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
@@ -81,6 +83,7 @@ public class FindRestaurantListFragment extends Fragment implements GoogleApiCli
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        mToolbarTitle = (TextView) view.findViewById(R.id.toolbar_title);
         return view;
     }
 
@@ -90,8 +93,22 @@ public class FindRestaurantListFragment extends Fragment implements GoogleApiCli
         inflater.inflate(R.menu.menu_search, menu);
         MenuItem menuItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mToolbarTitle.setVisibility(View.GONE);
+            }
+        });
 
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                mToolbarTitle.setVisibility(View.VISIBLE);
+                return false;
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 addToSharedPreferences(query);
